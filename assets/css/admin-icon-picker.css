@@ -1,0 +1,55 @@
+.icon-picker-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-picker-content {
+  background: white;
+  width: 600px;
+  max-height: 80vh;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.icon-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.icon-picker-grid .iconify {
+  font-size: 50px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.icon-picker-grid .iconify:hover {
+  background: #f3f4f6;
+}
+
+.icon-picker-search {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+}

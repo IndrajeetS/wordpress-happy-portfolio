@@ -1,0 +1,34 @@
+{
+  "name": "happy-wordpress-portfolio",
+  "version": "1.0.0",
+  "description": "A minimal, performance-focused WordPress portfolio theme built with Tailwind CSS. Features custom post types for Work Experience, Tech Stack, and Reading lists.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "postcss assets/css/input.css -o assets/css/output.css --env production",
+    "watch": "postcss assets/css/input.css -o assets/css/output.css --watch",
+    "bundle": "npm run build && bestzip wedo-theme.zip inc/ template-parts/ assets/ *.php style.css screenshot.png"
+  },
+  "keywords": [
+    "wordpress",
+    "portfolio",
+    "resume",
+    "tailwindcss",
+    "theme",
+    "SPA"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "autoprefixer": "^10.4.22",
+    "bestzip": "^2.2.1",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.17"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19"
+  }
+}

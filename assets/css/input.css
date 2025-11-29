@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-secondary: #64748b;
+  --color-accent: #f97316;
+  --color-paragraph: #171717;
+  --color-gray2: #f8f8f8;
+  --color-gray3: #f3f3f3;
+  --color-gray4: #ededed;
+  --color-gray5: #e8e8e8;
+  --color-gray8: #c7c7c7;
+  --color-gray10: #858585;
+  --color-gray11: #6f6f6f;
+  --color-gray12: #171717;
+  --color-grayBg: #fbfbfb;
+  --color-hoverBg: #f3f3f3;
+  --color-linkContainer: #ececec;
+  --color-yellowTagBg: #faedcc;
+  --color-redTagBg: #fae3de;
+  --color-purpleTagBg: #e6dfed;
+  --color-blueTagBg: #d7e5ee;
+  --color-greenTagBg: #dfeddd;
+  --color-overlayBg: rgba(0, 0, 0, .3);
+  --color-menuLabel: rgba(0, 0, 0, .825);
+  --color-menuHighlight: hsla(0, 0%, 100%, .95);
+  --color-menuActiveBorder: rgba(0, 0, 0, .064);
+  --color-tabBg: rgba(0, 0, 0, .04);
+  --color-tabText: rgba(0, 0, 0, .32);
+
+  /* Updated font stacks */
+  --font-sans: "Lato", system-ui, sans-serif;
+  --font-heading: "Roboto", system-ui, sans-serif;
+}
+
+/* ----------------------------------------------------- */
+/* Global element styles */
+/* ----------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: rgb(31 41 55);
+  background-color: white;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----------------------------------------------------- */
+/* WordPress-style heading defaults */
+/* ----------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: #000;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ----------------------------------------------------- */
+/* Text Elements */
+/* ----------------------------------------------------- */
+p,
+span,
+a,
+li,
+input,
+button,
+textarea,
+small,
+strong,
+em {
+  font-family: var(--font-sans);
+}
+
+p,
+ol,
+ul {
+  color: var(--color-paragraph);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* ----------------------------------------------------- */
+/* BLOG PAGE STYLING — unchanged */
+/* ----------------------------------------------------- */
+
+#post-header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.275rem;
+  font-weight: 700;
+  color: var(--color-gray12);
+  transition: color .25s ease;
+  line-height: 1.1;
+}
+
+#blog-content p {
+  color: var(--color-gray12);
+  margin-bottom: 15px;
+}
+
+#blog-content a,
+#about-page .blog-content a {
+  color: var(--color-gray12);
+  padding-right: 16px;
+  display: inline-flex;
+  padding-left: 4px;
+  margin-left: -3px;
+  margin-right: -2px;
+  border-radius: 4px;
+  align-items: stretch;
+}
+
+#blog-content a:hover,
+#about-page .blog-content a:hover {
+  background-color: var(--color-gray4);
+  transition: all .2s ease;
+  color: var(--color-gray12);
+}
+
+#blog-content a::after,
+#about-page .blog-content a::after {
+  display: inline-block;
+  content: "↗";
+  width: 14px;
+  height: 16px;
+  margin-right: -16px;
+  font-size: 15px;
+  margin-left: 2.5px;
+  font-weight: 300;
+}
+
+#blog-content h1,
+#blog-content h2,
+#blog-content h3,
+#blog-content h4,
+#blog-content h5 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+#blog-content div code,
+#blog-content div p code {
+  background-color: #1f2937;
+  border-radius: 0.2rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  padding: 1rem;
+  color: #ffffff;
+  font-size: 0.875rem;
+  display: block;
+  overflow-x: auto;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+#blog-content p>code {
+  background: var(--color-gray5);
+  padding: 4px 6px;
+  border-radius: 0.1rem;
+}
+
+/* ----------------------------------------------------- */
+/* ABOUT PAGE — FIXED: typography applied to WYSIWYG HTML */
+/* ----------------------------------------------------- */
+
+#about-page .about-site-info,
+#about-page .about-tech-info,
+#about-page .about-career-info {
+  font-family: var(--font-sans);
+  color: var(--color-gray12);
+  line-height: 1.7;
+  max-width: none;
+}
+
+/* Ensure headings use Roboto + spacing */
+#about-page .about-site-info h2,
+#about-page .about-tech-info h2,
+#about-page .about-career-info h2 {
+  /* font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-gray12); */
+  /* @apply text-lg font-medium mb-2 text-gray12; */
+  @apply text-lg mb-3.5 text-gray12 pt-4 mt-14;
+}
+
+#about-page .about-site-info h3,
+#about-page .about-tech-info h3,
+#about-page .about-career-info h3 {
+  /* font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem; */
+  @apply text-base text-gray12 m-0 font-normal;
+}
+
+#about-page .about-site-info p,
+#about-page .about-tech-info p,
+#about-page .about-career-info p {
+  @apply mb-4 text-gray12;
+}
+
+#about-page .about-career-info .experience-item p {
+  @apply mb-4 text-gray12;
+}
+
+#about-page .about-site-info ul {
+  @apply text-gray12 pl-4 list-disc;
+}
+
+#about-page .about-site-info ol {
+  @apply text-gray12 pl-4 list-decimal;
+}
+
+#about-page .divider {
+  border-top: 1.5px solid var(--color-gray3);
+  margin: 4rem 0 2rem;
+  transition: border .25s ease;
+}
+
+
+#about-page .about-career-info .company-info p {
+  @apply m-0 text-gray11;
+}
