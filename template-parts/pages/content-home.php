@@ -1,4 +1,4 @@
-<div id="home-page" class="gap-x-11 mx-auto">
+<div id="home-page" class="gap-x-11 mx-auto w-full">
   <h1
       id="time-based-greeting"
       class="my-4
