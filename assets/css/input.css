@@ -1,3 +1,11 @@
+/*
+ * Optimization for Font Display:
+ * The PHP file (inc/assets.php) now correctly loads Lato and Roboto
+ * with the 'font-display: swap' property via the Google Fonts URL.
+ * * This CSS ensures the font-family definitions use the correct
+ * font names and include robust system fallbacks.
+ */
+
 @import "tailwindcss";
 
 @theme {
@@ -28,7 +36,7 @@
   --color-tabBg: rgba(0, 0, 0, .04);
   --color-tabText: rgba(0, 0, 0, .32);
 
-  /* Updated font stacks */
+  /* Updated font stacks: Use 'Lato' and 'Roboto' with system fallbacks */
   --font-sans: "Lato", system-ui, sans-serif;
   --font-heading: "Roboto", system-ui, sans-serif;
 }

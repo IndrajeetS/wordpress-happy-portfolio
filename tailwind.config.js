@@ -18,8 +18,9 @@ export const theme = {
       accent: "#f97316", // orange accent
     },
     fontFamily: {
-      sans: ["Inter", "system-ui", "sans-serif"],
-      heading: ["Poppins", "system-ui", "sans-serif"],
+      // FIX: Updated to Lato (sans) and Roboto (heading) for consistency
+      sans: ["Lato", "system-ui", "sans-serif"],
+      heading: ["Roboto", "system-ui", "sans-serif"],
     },
     container: {
       center: true,

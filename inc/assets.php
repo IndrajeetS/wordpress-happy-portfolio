@@ -38,25 +38,59 @@ function happy_portfolio_asset_version( $file_path ) {
 
 
 // ==========================================================
-// 🎨 GOOGLE FONTS ASYNCHRONOUS LOAD (Critical Fix)
+// 🎨 GOOGLE FONTS ASYNCHRONOUS LOAD (Optimized for FOIT/FOUT)
 // ==========================================================
 
 /**
  * Preload and asynchronously load Google Fonts to prevent render blocking.
- * This function replaces the standard wp_enqueue_style for the font.
+ *
+ * CRITICAL OPTIMIZATION: Uses the 'media="print"' trick for async loading
+ * and 'display=swap' to ensure text is visible immediately (Flash of Unstyled Text - FOUT)
+ * instead of invisible (Flash of Invisible Text - FOIT).
  */
 function happy_portfolio_preload_google_fonts() {
     // 1. Preload the domain
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 
-    // 2. Asynchronously load the font stylesheet using media="print" trick
-    echo '<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'">' . "\n";
+    // 2. Asynchronously load the font stylesheet using media="print" trick.
+    // The 'display=swap' parameter ensures the text is visible (using a fallback)
+    // before the custom font (Space Grotesk) has loaded.
+    $font_url = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap';
+
+    echo '<link href="' . esc_url($font_url) . '" rel="stylesheet" media="print" onload="this.media=\'all\'">' . "\n";
 }
 add_action('wp_head', 'happy_portfolio_preload_google_fonts', 1);
 
 
 // --- Frontend Asset Enqueues ---
+
+// ==========================================================
+// 📝 THEME-SPECIFIC META TAGS
+// ==========================================================
+
+/**
+ * Adds theme-specific meta tags (description, author) to the document head.
+ * This is executed early using 'wp_head' action.
+ */
+function happy_portfolio_add_meta_tags() {
+    // Get the site description or default to a portfolio phrase
+    $site_description = get_bloginfo('description', 'display');
+    if (empty($site_description)) {
+        $site_description = 'A modern, high-performance digital portfolio showcasing work and projects.';
+    }
+
+    // 1. Standard SEO Description Tag
+    echo '<meta name="description" content="' . esc_attr($site_description) . '">' . "\n";
+
+    // 2. Author Tag (using blog name as a default author reference)
+    echo '<meta name="author" content="' . esc_attr(get_bloginfo('name', 'display')) . '">' . "\n";
+
+    // NOTE: If you need to include structured data like the one you provided
+    // (e.g., 'Author: A.N. Author, Category: Books, etc.'), it is better
+    // to use Schema.org JSON-LD or custom fields specific to the content type.
+}
+add_action('wp_head', 'happy_portfolio_add_meta_tags', 2);
 
 /**
  * Enqueue all theme-specific CSS and JS assets for the frontend.
