@@ -38,14 +38,13 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
       $output .= '
       <span class="
           menu-wrapper flex flex-row justify-between items-center p-3
-          md:px-[0.575rem] md:pl-[0.85rem] md:py-2
+          md:px-[0.575rem] md:py-2
           w-full h-9
           box-border rounded-lg mt-0.5
           border-[0.5px] border-transparent
           group-[.active]:bg-(--highlight)
           group-[.active]:border-[0.5px] group-[.active]:border-(--highlightActiveBorder)
           group-[.active]:shadow-[0_3px_3px_rgba(0,0,0,0.05)]
-
           transition-colors duration-100
         ">
       ';
