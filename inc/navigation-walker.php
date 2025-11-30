@@ -22,7 +22,7 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
       $num = self::$counter % 10;
       self::$counter++;
 
-      $output .= '<li class="m-0">';
+      $output .= '<li class="mt-0.5">';
 
       $output .= '<button
           data-page="' . esc_attr($page) . '"

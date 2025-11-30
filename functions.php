@@ -68,27 +68,15 @@ require_once HAPPY_PORTFOLIO_INC_DIR . 'helpers.php';
 /**
  * Time-based greeting functionality.
  */
-require_once HAPPY_PORTFOLIO_INC_DIR . 'greeting.php';
+// require_once HAPPY_PORTFOLIO_INC_DIR . 'greeting.php';
+
+
+require_once HAPPY_PORTFOLIO_INC_DIR . 'ajax-optimization.php';
 
 /**
  * Rendering functions.
  */
 require_once HAPPY_PORTFOLIO_INC_DIR . 'render-writing-grid.php';
-
-// That's it! All functionality is now loaded from the 'inc' directory.
-// In functions.php or inc/helpers.php
-function happy_portfolio_dequeue_ajax_scripts() {
-    if (isset($_GET['ajax']) && $_GET['ajax'] === '1') {
-        // Replace 'js', 'dom', and 'iconify' with the actual handles if possible
-        // If they are not WordPress handles, this won't work.
-        wp_dequeue_script('js');
-        wp_dequeue_script('dom');
-
-        // A more aggressive approach is to dequeue all but essential scripts.
-        // However, if the scripts are hardcoded in the HTML, you need to fix the source.
-    }
-}
-add_action('wp_enqueue_scripts', 'happy_portfolio_dequeue_ajax_scripts', 100);
 
 
 add_filter('the_content', 'happy_portfolio_add_heading_ids', 9);

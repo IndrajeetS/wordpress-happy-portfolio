@@ -5,15 +5,15 @@ $shared_walker = new Button_Walker_Nav_Menu();
 <!-- ============================= -->
 <!-- DESKTOP SIDEBAR -->
 <!-- ============================= -->
-<aside class="absolute hidden md:flex flex-col justify-between m-2 w-56 opacity-0 md:opacity-100 animate-fadeIn h-[calc(100vh-1rem)]">
+<aside class="absolute hidden md:flex flex-col justify-between m-2 w-58 opacity-0 md:opacity-100 animate-fadeIn h-[calc(100vh-1rem)] px-[0.15rem] items-stretch ">
   <nav class="space-y-4 p-1.5 -m-1.5">
 
     <div class="flex items-center mb-3 justify-center p-3">
-      <div class="text-2xl font-bold text-gray-700">Happy</div>
+      <div class="text-2xl font-bold text-gray12!">Happy</div>
     </div>
 
     <?php if (has_nav_menu('primary_menu')) : ?>
-      <ul class="space-y-1">
+      <ul class="space-y-1 m-0!">
         <?php wp_nav_menu([
           'theme_location' => 'primary_menu',
           'container'      => false,
@@ -24,8 +24,8 @@ $shared_walker = new Button_Walker_Nav_Menu();
     <?php endif; ?>
 
     <?php if (has_nav_menu('resources_menu')) : ?>
-      <div class="mt-6">
-        <p class="text-black font-medium text-xs px-3 uppercase opacity-70">Resources</p>
+      <div class="m-0!">
+        <p class="pt-5 pb-2 pl-3.5 text-[11.6px] font-[480] text-gray11! transition duration-150 ease-in-out">Resources</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'resources_menu',
@@ -38,8 +38,8 @@ $shared_walker = new Button_Walker_Nav_Menu();
     <?php endif; ?>
 
     <?php if (has_nav_menu('connect_menu')) : ?>
-      <div class="mt-6">
-        <p class="text-black font-medium text-xs px-3 uppercase opacity-70">Connect</p>
+      <div class="m-0!">
+        <p class="pt-5 pb-2 pl-3.5 text-[11.6px] font-[480] text-gray11! transition duration-150 ease-in-out">Connect</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'connect_menu',

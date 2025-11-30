@@ -53,7 +53,7 @@ document.addEventListener("click", async (e) => {
             showCopyToast("Copied to clipboard!");
             return;
         } catch (err) {
-            console.warn("Modern API failed, using fallback.");
+            // console.warn("Modern API failed, using fallback.");
         }
     }
 

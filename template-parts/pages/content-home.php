@@ -1,10 +1,10 @@
-<div id="home-page" class="gap-x-11 mx-auto w-full">
+<div id="home-page" class="px-4 pb-12 max-w-7xl w-full flex flex-col items-stretch">
   <h1
       id="time-based-greeting"
       class="my-4
             text-[clamp(56px,calc((100vw-350px)*.1),135px)]!
             ml-[clamp(-12px,calc((100vw-350px)*-.009),0px)]!
-            font-medium!
+            font-[390]!
           text-gray12
             transition-colors duration-250 ease-in
             leading-snug

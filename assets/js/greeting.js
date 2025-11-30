@@ -59,9 +59,9 @@ function getLocalTimeBasedGreeting() {
     //   'leading-snug'
     // );
 
-    console.log(`✅ Greeting set to: ${greeting}. Monitoring for conflicts.`);
+    // console.log(`✅ Greeting set to: ${greeting}. Monitoring for conflicts.`);
   }
 }
 
 // Run the script
-getLocalTimeBasedGreeting();
+// getLocalTimeBasedGreeting();

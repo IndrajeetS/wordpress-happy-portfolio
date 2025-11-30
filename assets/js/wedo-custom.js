@@ -79,7 +79,7 @@
     // debounce
     const now = Date.now();
     if (now - lastLoadTs < DEBOUNCE_MS) {
-      // console.log('wedo-custom: loadTools debounced');
+      // // console.log('wedo-custom: loadTools debounced');
       return;
     }
     lastLoadTs = now;
@@ -94,7 +94,7 @@
       if (item_part) params.set('item_part', item_part);
 
       // DEBUG LOG: Verify parameters being sent
-      console.log(`✅ AJAX Load: Post Type='${post_type}', Item Part='${item_part}', Term='${term}'`);
+      // console.log(`✅ AJAX Load: Post Type='${post_type}', Item Part='${item_part}', Term='${term}'`);
 
       const url = `${(wedoAjax && wedoAjax.ajaxurl) ? wedoAjax.ajaxurl : '/wp-admin/admin-ajax.php'}?${params.toString()}`;
 
@@ -199,7 +199,7 @@
 
       // CRITICAL: Since PHP server-side query is removed, container is always empty on AJAX/initial load.
       // We must load tools every time the page loads/reloads.
-      console.log(`🔄 wedo-custom: Loading initial items for term: ${initial}`);
+      // console.log(`🔄 wedo-custom: Loading initial items for term: ${initial}`);
       loadTools(initialBtn.dataset.term || 'all');
     }
 
@@ -211,11 +211,15 @@
     window.wedoInitTabs = function (isAjaxCall = false) {
       // If module is ready, call actual init immediately.
       if (moduleReady) {
-        try { initWedoTabsActual(isAjaxCall); } catch (e) { console.error('wedo-custom.init error', e); }
+        try { initWedoTabsActual(isAjaxCall); } catch (e) {
+          // console.error('wedo-custom.init error', e);
+        }
       } else {
         // If not ready yet, schedule a short retry.
         setTimeout(() => {
-          try { initWedoTabsActual(isAjaxCall); } catch (e) { console.error('wedo-custom.init error', e); }
+          try { initWedoTabsActual(isAjaxCall); } catch (e) {
+            // console.error('wedo-custom.init error', e);
+          }
         }, 40);
       }
     };
@@ -224,7 +228,9 @@
     const prev = window.wedoInitTabs;
     window.wedoInitTabs = function (isAjaxCall = false) {
       setTimeout(() => {
-        try { initWedoTabsActual(isAjaxCall); } catch (e) { console.error('wedo-custom.init error', e); }
+        try { initWedoTabsActual(isAjaxCall); } catch (e) {
+          // console.error('wedo-custom.init error', e);
+        }
       }, 0);
       try { if (typeof prev === 'function') prev(isAjaxCall); } catch (e) { /* noop */ }
     };
@@ -236,12 +242,16 @@
   // Auto-run shortly after load to bind listeners if content exists.
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      try { initWedoTabsActual(); } catch (e) { console.error('wedo-custom DOM init error', e); }
+      try { initWedoTabsActual(); } catch (e) {
+        // console.error('wedo-custom DOM init error', e);
+      }
     });
   } else {
-    try { initWedoTabsActual(); } catch (e) { console.error('wedo-custom init error', e); }
+    try { initWedoTabsActual(); } catch (e) {
+      // console.error('wedo-custom init error', e);
+    }
   }
 
   // final log
-  console.log('wedo-custom: module loaded and ready (SPA-friendly)');
+  // console.log('wedo-custom: module loaded and ready (SPA-friendly)');
 })();
