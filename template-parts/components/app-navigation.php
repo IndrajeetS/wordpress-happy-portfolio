@@ -25,7 +25,7 @@ $shared_walker = new Button_Walker_Nav_Menu();
 
     <?php if (has_nav_menu('resources_menu')) : ?>
       <div class="m-0!">
-        <p class="pt-5 pb-2 pl-3.5 text-[11.6px] font-[480] text-gray11! transition duration-150 ease-in-out">Resources</p>
+        <p class="pt-5 pb-2 pl-3.5 text-[11.6px]! font-[480] text-gray11! transition duration-150 ease-in-out">Resources</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'resources_menu',
@@ -39,7 +39,7 @@ $shared_walker = new Button_Walker_Nav_Menu();
 
     <?php if (has_nav_menu('connect_menu')) : ?>
       <div class="m-0!">
-        <p class="pt-5 pb-2 pl-3.5 text-[11.6px] font-[480] text-gray11! transition duration-150 ease-in-out">Connect</p>
+        <p class="pt-5 pb-2 pl-3.5 text-[11.6px]! font-[480] text-gray11! transition duration-150 ease-in-out">Connect</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'connect_menu',
