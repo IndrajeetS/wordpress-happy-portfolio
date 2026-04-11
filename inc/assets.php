@@ -15,8 +15,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Define asset version constants for easy updates
-if ( ! defined( 'HAPPY_PORTFOLIO_VERSION' ) ) {
-    define( 'HAPPY_PORTFOLIO_VERSION', '1.0.0' );
+if (!defined('HAPPY_PORTFOLIO_VERSION')) {
+    define('HAPPY_PORTFOLIO_VERSION', '1.1.0');
 }
 
 // ==========================================================
@@ -29,9 +29,10 @@ if ( ! defined( 'HAPPY_PORTFOLIO_VERSION' ) ) {
  * @param string $file_path Absolute path to the asset file.
  * @return string|bool File modification time (Unix timestamp) or false if file doesn't exist.
  */
-function happy_portfolio_asset_version( $file_path ) {
-    if ( file_exists( $file_path ) ) {
-        return filemtime( $file_path );
+function happy_portfolio_asset_version($file_path)
+{
+    if (file_exists($file_path)) {
+        return filemtime($file_path);
     }
     return HAPPY_PORTFOLIO_VERSION;
 }
@@ -48,7 +49,8 @@ function happy_portfolio_asset_version( $file_path ) {
  * and 'display=swap' to ensure text is visible immediately (Flash of Unstyled Text - FOUT)
  * instead of invisible (Flash of Invisible Text - FOIT).
  */
-function happy_portfolio_preload_google_fonts() {
+function happy_portfolio_preload_google_fonts()
+{
     // 1. Preload the domain
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
@@ -62,6 +64,30 @@ function happy_portfolio_preload_google_fonts() {
 }
 add_action('wp_head', 'happy_portfolio_preload_google_fonts', 1);
 
+/**
+ * Early theme detection script to prevent FOUC (Flash of Unstyled Content).
+ * Runs before the page renders to apply the correct theme immediately.
+ */
+function happy_portfolio_early_theme_script()
+{
+    ?>
+    <script>
+        (function () {
+            try {
+                const theme = localStorage.getItem('theme') || 'auto';
+                const html = document.documentElement;
+                if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+            } catch (e) { }
+        })();
+    </script>
+    <?php
+}
+add_action('wp_head', 'happy_portfolio_early_theme_script', 0);
+
 
 // --- Frontend Asset Enqueues ---
 
@@ -73,7 +99,8 @@ add_action('wp_head', 'happy_portfolio_preload_google_fonts', 1);
  * Adds theme-specific meta tags (description, author) to the document head.
  * This is executed early using 'wp_head' action.
  */
-function happy_portfolio_add_meta_tags() {
+function happy_portfolio_add_meta_tags()
+{
     // Get the site description or default to a portfolio phrase
     $site_description = get_bloginfo('description', 'display');
     if (empty($site_description)) {
@@ -98,7 +125,8 @@ add_action('wp_head', 'happy_portfolio_add_meta_tags', 2);
  * @since 1.0.0
  * @action wp_enqueue_scripts
  */
-function happy_portfolio_enqueue_frontend_assets() {
+function happy_portfolio_enqueue_frontend_assets()
+{
     $template_uri = get_template_directory_uri();
     $template_dir = get_template_directory();
 
@@ -109,7 +137,7 @@ function happy_portfolio_enqueue_frontend_assets() {
         'happy-portfolio-main',
         $template_uri . '/assets/css/output.css',
         [],
-        happy_portfolio_asset_version( $template_dir . '/assets/css/output.css' )
+        happy_portfolio_asset_version($template_dir . '/assets/css/output.css')
     );
 
     // 2. Google Font: NO LONGER ENQUEUED HERE. Handled by happy_portfolio_preload_google_fonts().
@@ -131,7 +159,7 @@ function happy_portfolio_enqueue_frontend_assets() {
         'happy-portfolio-main-js',
         $template_uri . '/assets/js/main.js',
         ['jquery'],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/main.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/main.js'),
         true
     );
 
@@ -149,7 +177,7 @@ function happy_portfolio_enqueue_frontend_assets() {
         'wedo-custom-scripts',
         $template_uri . '/assets/js/wedo-custom.js',
         ['jquery'],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/wedo-custom.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/wedo-custom.js'),
         true
     );
 
@@ -157,7 +185,7 @@ function happy_portfolio_enqueue_frontend_assets() {
     wp_localize_script(
         'wedo-custom-scripts',
         'wedoAjax',
-        [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
+        ['ajaxurl' => admin_url('admin-ajax.php')]
     );
 
     // 4. Component-specific Scripts
@@ -165,7 +193,7 @@ function happy_portfolio_enqueue_frontend_assets() {
         'happy-portfolio-greeting',
         $template_uri . '/assets/js/greeting.js',
         [],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/greeting.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/greeting.js'),
         true
     );
 
@@ -173,7 +201,7 @@ function happy_portfolio_enqueue_frontend_assets() {
         'happy-portfolio-localTime',
         $template_uri . '/assets/js/local-time.js',
         [],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/local-time.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/local-time.js'),
         true
     );
 
@@ -181,36 +209,45 @@ function happy_portfolio_enqueue_frontend_assets() {
         'happy-portfolio-copy-to-clip',
         $template_uri . '/assets/js/copy-to-clip.js',
         [],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/copy-to-clip.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/copy-to-clip.js'),
         true
     );
 
-     wp_enqueue_script(
+    wp_enqueue_script(
         'wedo-helper-class',
         $template_uri . '/assets/js/helper.js',
         [],
-        happy_portfolio_asset_version( $template_dir . '/assets/js/helper.js' ),
+        happy_portfolio_asset_version($template_dir . '/assets/js/helper.js'),
         true
     );
 
-    // Localize AJAX URL for wedo-tools-filter
     wp_localize_script(
         'wedo-tools-filter',
         'wedoAjax',
-        [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
+        ['ajaxurl' => admin_url('admin-ajax.php')]
+    );
+
+    // 5. Theme Toggle Script
+    wp_enqueue_script(
+        'happy-portfolio-theme-toggle',
+        $template_uri . '/assets/js/theme-toggle.js',
+        [],
+        happy_portfolio_asset_version($template_dir . '/assets/js/theme-toggle.js'),
+        true
     );
 }
-add_action( 'wp_enqueue_scripts', 'happy_portfolio_enqueue_frontend_assets' );
+add_action('wp_enqueue_scripts', 'happy_portfolio_enqueue_frontend_assets');
 
 
 // --- Admin Asset Enqueues ---
 // ... (Admin function remains unchanged for now) ...
-function happy_portfolio_enqueue_admin_assets( $hook ) {
+function happy_portfolio_enqueue_admin_assets($hook)
+{
     $template_uri = get_template_directory_uri();
     $template_dir = get_template_directory();
 
     // Load assets ONLY on the Appearance -> Menus screen for the Icon Picker.
-    if ( 'nav-menus.php' === $hook ) {
+    if ('nav-menus.php' === $hook) {
 
         // --- Stylesheets ---
 
@@ -219,15 +256,15 @@ function happy_portfolio_enqueue_admin_assets( $hook ) {
             'happy-portfolio-tailwind-admin',
             $template_uri . '/assets/css/output.css',
             [],
-            happy_portfolio_asset_version( $template_dir . '/assets/css/output.css' )
+            happy_portfolio_asset_version($template_dir . '/assets/css/output.css')
         );
 
         // 2. Custom Icon Picker CSS
         wp_enqueue_style(
-          'happy-portfolio-admin-icon-picker-style',
-          $template_uri . '/assets/css/admin-icon-picker.css',
-          [],
-          happy_portfolio_asset_version( $template_dir . '/assets/css/admin-icon-picker.css' )
+            'happy-portfolio-admin-icon-picker-style',
+            $template_uri . '/assets/css/admin-icon-picker.css',
+            [],
+            happy_portfolio_asset_version($template_dir . '/assets/css/admin-icon-picker.css')
         );
 
         // --- Scripts ---
@@ -243,15 +280,15 @@ function happy_portfolio_enqueue_admin_assets( $hook ) {
 
         // 2. Custom Icon Picker JS
         wp_enqueue_script(
-          'happy-portfolio-admin-icon-picker-script',
-          $template_uri . '/assets/js/admin-icon-picker.js',
-          ['jquery', 'iconify-admin'],
-          happy_portfolio_asset_version( $template_dir . '/assets/js/admin-icon-picker.js' ),
-          true
+            'happy-portfolio-admin-icon-picker-script',
+            $template_uri . '/assets/js/admin-icon-picker.js',
+            ['jquery', 'iconify-admin'],
+            happy_portfolio_asset_version($template_dir . '/assets/js/admin-icon-picker.js'),
+            true
         );
     }
 }
-add_action( 'admin_enqueue_scripts', 'happy_portfolio_enqueue_admin_assets' );
+add_action('admin_enqueue_scripts', 'happy_portfolio_enqueue_admin_assets');
 
 
 // ==========================================================
@@ -267,11 +304,10 @@ add_action( 'admin_enqueue_scripts', 'happy_portfolio_enqueue_admin_assets' );
  * @param string $handle The script's registered handle.
  * @return string
  */
-function happy_portfolio_add_defer_to_scripts( $tag, $handle ) {
+function happy_portfolio_add_defer_to_scripts($tag, $handle)
+{
     // List of ALL script handles enqueued in the frontend that should be deferred.
     $scripts_to_defer = [
-        'jquery-core',                  // CRITICAL FIX: Defer core jQuery
-        'jquery-migrate',               // CRITICAL FIX: Defer migrate
         'happy-portfolio-main-js',
         'iconify',
         'wedo-custom-scripts',
@@ -283,11 +319,11 @@ function happy_portfolio_add_defer_to_scripts( $tag, $handle ) {
         'happy-portfolio-fontawesome-js', // Defer new Font Awesome JS
     ];
 
-    if ( in_array( $handle, $scripts_to_defer, true ) ) {
+    if (in_array($handle, $scripts_to_defer, true)) {
         // Find the src attribute and insert 'defer' before it.
-        return str_replace( ' src=', ' defer src=', $tag );
+        return str_replace(' src=', ' defer src=', $tag);
     }
 
     return $tag;
 }
-add_filter( 'script_loader_tag', 'happy_portfolio_add_defer_to_scripts', 10, 2 );
+add_filter('script_loader_tag', 'happy_portfolio_add_defer_to_scripts', 10, 2);

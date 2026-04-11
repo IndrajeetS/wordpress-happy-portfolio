@@ -8,7 +8,7 @@
 
 @import "tailwindcss";
 
-@theme {
+:root {
   --color-primary: #2563eb;
   --color-secondary: #64748b;
   --color-accent: #f97316;
@@ -21,7 +21,10 @@
   --color-gray10: #858585;
   --color-gray11: #6f6f6f;
   --color-gray12: #171717;
+  --color-appbg: #f8f8f8;
+  --color-contentBg: #ffffff;
   --color-grayBg: #fbfbfb;
+  --color-sidebarBg: #ffffff;
   --color-hoverBg: #f3f3f3;
   --color-linkContainer: #ececec;
   --color-yellowTagBg: #faedcc;
@@ -29,36 +32,110 @@
   --color-purpleTagBg: #e6dfed;
   --color-blueTagBg: #d7e5ee;
   --color-greenTagBg: #dfeddd;
-  --color-overlayBg: rgba(0, 0, 0, .3);
-  --color-menuLabel: rgba(0, 0, 0, .825);
-  --color-menuHighlight: hsla(0, 0%, 100%, .95);
-  --color-menuActiveBorder: rgba(0, 0, 0, .064);
-  --color-tabBg: rgba(0, 0, 0, .04);
-  --color-tabText: rgba(0, 0, 0, .32);
+  --color-overlayBg: rgba(0, 0, 0, 0.3);
+  --color-menuLabel: rgba(0, 0, 0, 0.825);
+  --color-menuHighlight: hsla(0, 0%, 100%, 0.95);
+  --color-menuActiveBorder: rgba(0, 0, 0, 0.064);
+  --color-tabBg: rgba(0, 0, 0, 0.04);
+  --color-tabText: rgba(0, 0, 0, 0.32);
+  --color-activeTabBg: #ffffff;
+  --color-readingBg: #ffffff;
+  --color-border: #e6e6e6;
+  --color-nav-hover: var(--color-hoverBg);
+  --color-nav-badgeBg: var(--color-gray3);
+  --color-nav-badgeText: var(--color-gray10);
+  --color-glow-primary: rgba(59, 130, 246, 0.2);
+  --color-glow-secondary: rgba(168, 85, 247, 0.15);
+}
 
-  /* Updated font stacks: Use 'Lato' and 'Roboto' with system fallbacks */
+.dark {
+  --color-appbg: #202020;
+  --color-contentBg: #171717;
+  --color-paragraph: #d4d4d4;
+  --color-gray2: #171717;
+  --color-gray3: #1c1c1c;
+  --color-gray4: #262626;
+  --color-gray5: #2d2d2d;
+  --color-gray8: #404040;
+  --color-gray10: #737373;
+  --color-gray11: #a3a3a3;
+  --color-gray12: #ededed;
+  --color-grayBg: #0a0a0a;
+  --color-sidebarBg: #121212;
+  --color-hoverBg: #1a1a1a;
+  --color-linkContainer: #262626;
+  --color-overlayBg: rgba(0, 0, 0, 0.7);
+  --color-menuLabel: rgba(255, 255, 255, 0.825);
+  --color-menuHighlight: rgba(255, 255, 255, 0.05);
+  --color-menuActiveBorder: rgba(255, 255, 255, 0.1);
+  --color-tabBg: rgba(255, 255, 255, 0.08);
+  --color-tabText: rgba(255, 255, 255, 0.5);
+  --color-activeTabBg: #1a1a1a;
+  --color-readingBg: #171717;
+  --color-border: #262626;
+  --color-nav-hover: var(--color-hoverBg);
+  --color-nav-badgeBg: var(--color-gray4);
+  --color-nav-badgeText: var(--color-gray11);
+  --color-glow-primary: rgba(59, 130, 246, 0.15);
+  --color-glow-secondary: rgba(168, 85, 247, 0.1);
+}
+
+@theme {
+  --variant-dark: .dark &;
+  --color-appbg: var(--color-appbg);
+  --color-contentBg: var(--color-contentBg);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-paragraph: var(--color-paragraph);
+  --color-gray2: var(--color-gray2);
+  --color-gray3: var(--color-gray3);
+  --color-gray4: var(--color-gray4);
+  --color-gray5: var(--color-gray5);
+  --color-gray8: var(--color-gray8);
+  --color-gray10: var(--color-gray10);
+  --color-gray11: var(--color-gray11);
+  --color-gray12: var(--color-gray12);
+  --color-grayBg: var(--color-grayBg);
+  --color-sidebarBg: var(--color-sidebarBg);
+  --color-hoverBg: var(--color-hoverBg);
+  --color-linkContainer: var(--color-linkContainer);
+  --color-yellowTagBg: var(--color-yellowTagBg);
+  --color-redTagBg: var(--color-redTagBg);
+  --color-purpleTagBg: var(--color-purpleTagBg);
+  --color-blueTagBg: var(--color-blueTagBg);
+  --color-greenTagBg: var(--color-greenTagBg);
+  --color-overlayBg: var(--color-overlayBg);
+  --color-menuLabel: var(--color-menuLabel);
+  --color-menuHighlight: var(--color-menuHighlight);
+  --color-menuActiveBorder: var(--color-menuActiveBorder);
+  --color-tabBg: var(--color-tabBg);
+  --color-tabText: var(--color-tabText);
+  --color-activeTabBg: var(--color-activeTabBg);
+  --color-readingBg: var(--color-readingBg);
+  --color-border: var(--color-border);
+  --color-nav-hover: var(--color-nav-hover);
+  --color-nav-badgeBg: var(--color-nav-badgeBg);
+  --color-nav-badgeText: var(--color-nav-badgeText);
+  --color-glow-primary: var(--color-glow-primary);
+  --color-glow-secondary: var(--color-glow-secondary);
+
   --font-sans: "Lato", system-ui, sans-serif;
   --font-heading: "Roboto", system-ui, sans-serif;
 }
 
-/* ----------------------------------------------------- */
-/* Global element styles */
-/* ----------------------------------------------------- */
 html {
   scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-sans);
-  color: rgb(31 41 55);
-  background-color: white;
+  color: var(--color-paragraph);
+  background-color: var(--color-grayBg);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ----------------------------------------------------- */
-/* WordPress-style heading defaults */
-/* ----------------------------------------------------- */
 h1,
 h2,
 h3,
@@ -66,7 +143,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  color: #000;
+  color: var(--color-gray12);
   letter-spacing: -0.015em;
   line-height: 1.25;
 }
@@ -144,7 +221,7 @@ a:hover {
   font-size: 2.275rem;
   font-weight: 700;
   color: var(--color-gray12);
-  transition: color .25s ease;
+  transition: color 0.25s ease;
   line-height: 1.1;
 }
 
@@ -168,7 +245,7 @@ a:hover {
 #blog-content a:hover,
 #about-page .blog-content a:hover {
   background-color: var(--color-gray4);
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   color: var(--color-gray12);
 }
 
@@ -197,7 +274,8 @@ a:hover {
 #blog-content div p code {
   background-color: #1f2937;
   border-radius: 0.2rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   padding: 1rem;
   color: #ffffff;
@@ -208,7 +286,7 @@ a:hover {
   margin-bottom: 15px;
 }
 
-#blog-content p>code {
+#blog-content p > code {
   background: var(--color-gray5);
   padding: 4px 6px;
   border-radius: 0.1rem;
@@ -273,10 +351,51 @@ a:hover {
 #about-page .divider {
   border-top: 1.5px solid var(--color-gray3);
   margin: 4rem 0 2rem;
-  transition: border .25s ease;
+  transition: border 0.25s ease;
 }
-
 
 #about-page .about-career-info .company-info p {
   @apply m-0 text-gray11;
+}
+
+@keyframes blobFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+@keyframes blobFloatAlt {
+  0%,
+  100% {
+    transform: translate(12px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(12px, -14px) scale(1.08);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(55px);
+  }
+}
+
+@keyframes iconFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }

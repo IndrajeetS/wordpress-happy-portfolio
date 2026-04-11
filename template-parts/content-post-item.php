@@ -17,8 +17,8 @@ if (!defined('ABSPATH')) {
 // -----------------------------------------------------
 
 // Get essential post details directly within the loop
-$post_id   = get_the_ID();
-$link      = get_permalink();
+$post_id = get_the_ID();
+$link = get_permalink();
 $post_title_attribute = the_title_attribute(['echo' => false]);
 
 // Get the featured image ID for use with wp_get_attachment_image()
@@ -34,11 +34,12 @@ $category_name = ($categories && !is_wp_error($categories)) ? esc_html($categori
 // 2. HTML OUTPUT
 // -----------------------------------------------------
 
-if ($link) :
+if ($link):
     ?>
-    <a class="group rounded-lg flex flex-col justify-between items-start p-4 bg-white border border-[#e6e6e6] relative row-gap-4 transition-all duration-75 ease-in overflow-hidden hover:bg-hoverBg" href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($post_title_attribute); ?>">
+    <a class="group rounded-lg flex flex-col justify-between items-start p-4 relative row-gap-4 transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-hoverBg"
+        href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($post_title_attribute); ?>">
 
-        <?php if ($thumbnail_id) :
+        <?php if ($thumbnail_id):
             // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
             // This outputs a complete <img> tag with loading="lazy", srcset, and sizes
             // attributes for responsive image delivery.
@@ -47,9 +48,9 @@ if ($link) :
                 'medium', // Use 'medium' size (or a custom size tailored for your grid)
                 false,
                 [
-                    'class'   => 'w-full h-38 object-cover rounded-lg',
+                    'class' => 'w-full h-38 object-cover rounded-lg',
                     'loading' => 'lazy', // Ensure lazy loading is enabled
-                    'alt'     => $post_title_attribute, // Re-use the title for better accessibility
+                    'alt' => $post_title_attribute, // Re-use the title for better accessibility
                 ]
             );
         endif; ?>
@@ -58,16 +59,19 @@ if ($link) :
             <h3 class="
             inline-flex! font-[390] tracking-[.1px] leading-[1.1] text-[15px] text-gray12 transition duration-250 ease-in-out text-lg! m-0!
             ">
-                <?php the_title(); ?>
-                <span class="opacity-0 text-sm! group-hover:opacity-100 transition-opacity duration-300">↗</span>
+                <span class="inline-block mr-1">
+                    <?php the_title(); ?>
+                </span>
+                <span
+                    class="inline-block opacity-0 text-sm! group-hover:opacity-100 transition-opacity duration-300">↗</span>
             </h3>
 
-             <p class="text-gray11! text-xs! mt-1 text-[13.8px] font-[390] overflow-hidden text-ellipsis line-clamp-2">
+            <p class="text-gray11! text-xs! mt-1 text-[13.8px] font-[390] overflow-hidden text-ellipsis line-clamp-2">
                 <?php
-                    // Display a trimmed, controlled excerpt.
-                    $content = get_the_content();
-                    $content = wp_strip_all_tags($content);
-                    echo wp_trim_words($content, 15, '..');
+                // Display a trimmed, controlled excerpt.
+                $content = get_the_content();
+                $content = wp_strip_all_tags($content);
+                echo wp_trim_words($content, 15, '..');
                 ?>
             </p>
         </div>

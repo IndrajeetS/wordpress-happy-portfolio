@@ -46,16 +46,16 @@ add_action( 'init', 'wedo_register_resource_tools_cpt' );
  */
 function wedo_register_resource_categories() {
     $labels = [
-        'name'              => __( 'Categories', 'wedo' ),
-        'singular_name'     => __( 'Category', 'wedo' ),
-        'search_items'      => __( 'Search Categories', 'wedo' ),
-        'all_items'         => __( 'All Categories', 'wedo' ),
-        'parent_item'       => __( 'Parent Category', 'wedo' ),
-        'edit_item'         => __( 'Edit Category', 'wedo' ),
-        'update_item'       => __( 'Update Category', 'wedo' ),
-        'add_new_item'      => __( 'Add New Category', 'wedo' ),
-        'new_item_name'     => __( 'New Category Name', 'wedo' ),
-        'menu_name'         => __( 'Categories', 'wedo' ),
+        'name'              => __( 'Resource Categories', 'wedo' ), // Changed from generic 'Categories'
+        'singular_name'     => __( 'Resource Category', 'wedo' ),
+        'search_items'      => __( 'Search Resource Categories', 'wedo' ),
+        'all_items'         => __( 'All Resource Categories', 'wedo' ),
+        'parent_item'       => __( 'Parent Resource Category', 'wedo' ),
+        'edit_item'         => __( 'Edit Resource Category', 'wedo' ),
+        'update_item'       => __( 'Update Resource Category', 'wedo' ),
+        'add_new_item'      => __( 'Add New Resource Category', 'wedo' ),
+        'new_item_name'     => __( 'New Resource Category Name', 'wedo' ),
+        'menu_name'         => __( 'Resource Categories', 'wedo' ),
     ];
 
     $args = [
@@ -90,7 +90,7 @@ add_action( 'add_meta_boxes', 'wedo_add_resource_meta_box' );
  * Render Meta Box HTML
  */
 function wedo_render_resource_meta_box( $post ) {
-    $external_link = get_post_meta( $post->ID, '_wedo_resource_link', true );
+    $external_link = get_post_meta( $post->ID, '_wedo_external_link', true );
     ?>
     <div class="field-group" style="margin-top:10px;">
         <label for="wedo_resource_link" style="font-weight:600; display:block; margin-bottom:4px;">
@@ -113,7 +113,7 @@ function wedo_render_resource_meta_box( $post ) {
  */
 function wedo_save_resource_meta( $post_id ) {
     if ( array_key_exists( 'wedo_resource_link', $_POST ) ) {
-        update_post_meta( $post_id, '_wedo_resource_link', sanitize_text_field( $_POST['wedo_resource_link'] ) );
+        update_post_meta( $post_id, '_wedo_external_link', sanitize_text_field( $_POST['wedo_resource_link'] ) );
     }
 }
 add_action( 'save_post_resource_tools', 'wedo_save_resource_meta' );
@@ -153,11 +153,12 @@ function unified_filter_ajax_handler() {
 
     if ( $query->have_posts() ) :
         while ( $query->have_posts() ) : $query->the_post();
-            // ✅ Uses the correct template part from JS (e.g., 'grid-reading-item')
-            get_template_part( 'template-parts/content', $item_part );
+            // Prefix correctly for template parts
+            $slug = 'template-parts/content';
+            get_template_part( $slug, $item_part );
         endwhile;
     else :
-        echo '<p class="text-gray-500">No items found in this category.</p>';
+        echo '<p class="text-gray-500 py-4">No items found in this category.</p>';
     endif;
 
     wp_reset_postdata();

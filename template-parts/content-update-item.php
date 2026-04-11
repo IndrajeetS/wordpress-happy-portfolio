@@ -16,17 +16,17 @@ if (!defined('ABSPATH')) {
 // 1. DATA RETRIEVAL AND LINK LOGIC
 // -----------------------------------------------------
 
-$post_id            = get_the_ID();
-$post_type          = get_post_type($post_id);
+$post_id = get_the_ID();
+$post_type = get_post_type($post_id);
 $is_personal_update = $post_type === 'personal_update';
-$title_attr         = the_title_attribute(['echo' => false]);
+$title_attr = the_title_attribute(['echo' => false]);
 
 // --- CRITICAL LINK ASSIGNMENT LOGIC ---
-$link          = get_permalink($post_id);
+$link = get_permalink($post_id);
 $external_link = '';
-$link_target   = ''; // target="_blank" | empty
-$link_rel      = ''; // rel="noopener noreferrer" | empty
-$link_icon     = '→'; // Default icon is internal arrow
+$link_target = ''; // target="_blank" | empty
+$link_rel = ''; // rel="noopener noreferrer" | empty
+$link_icon = '→'; // Default icon is internal arrow
 
 if ($is_personal_update) {
     // Retrieve and validate the external link
@@ -35,10 +35,10 @@ if ($is_personal_update) {
     if (!empty($retrieved_link) && filter_var($retrieved_link, FILTER_VALIDATE_URL)) {
         // Use external link, set target/rel, and change icon
         $external_link = esc_url($retrieved_link);
-        $link          = $external_link;
-        $link_target   = '_blank';
-        $link_rel      = 'noopener noreferrer';
-        $link_icon     = '↗';
+        $link = $external_link;
+        $link_target = '_blank';
+        $link_rel = 'noopener noreferrer';
+        $link_icon = '↗';
     }
 }
 // --- END CRITICAL LINK ASSIGNMENT LOGIC ---
@@ -54,7 +54,7 @@ $thumbnail_id = get_post_thumbnail_id($post_id);
 
 // The $args variable is automatically available in the template part.
 // Use the null coalescing operator (??) to set a default if the argument wasn't passed.
-$item_classes = $args['item_classes'] ?? "group rounded-lg flex flex-col justify-between items-start p-4 bg-grayBg border border-none relative transition-all duration-75 ease-in overflow-hidden hover:bg-gray4";
+$item_classes = $args['item_classes'] ?? "group rounded-lg flex flex-col justify-between items-start p-4 relative transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-gray4";
 $item_content = $args['item_content'] ?? "flex-3 mb-0! mt-2.5";
 $item_title = $args['item_title'] ?? "block";
 $item_date = $args['item_date'] ?? "";
@@ -63,27 +63,22 @@ $item_date = $args['item_date'] ?? "";
 // 3. HTML OUTPUT
 // -----------------------------------------------------
 
-if ($link) :
-?>
+if ($link):
+    ?>
 
-   <a class="<?php echo esc_attr($item_classes); ?>"
-      href="<?php echo esc_url($link); ?>"
-      title="<?php echo esc_attr($title_attr); ?>"
-      <?php if (!empty($link_target)) : ?>
-        target="<?php echo esc_attr($link_target); ?>"
-        rel="<?php echo esc_attr($link_rel); ?>"
-      <?php endif; ?>
-    >
-        <?php if ($thumbnail_id) :
+    <a class="<?php echo esc_attr($item_classes); ?>" href="<?php echo esc_url($link); ?>"
+        title="<?php echo esc_attr($title_attr); ?>" <?php if (!empty($link_target)): ?>
+            target="<?php echo esc_attr($link_target); ?>" rel="<?php echo esc_attr($link_rel); ?>" <?php endif; ?>>
+        <?php if ($thumbnail_id):
             // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
             echo wp_get_attachment_image(
                 $thumbnail_id,
                 'thumbnail', // A small size suitable for a 32x32 display
                 false,
                 [
-                    'class'   => 'mr-2.5! w-8 h-8 object-cover rounded-lg',
+                    'class' => 'mr-2.5! w-8 h-8 object-cover rounded-lg',
                     'loading' => 'lazy',
-                    'alt'     => $title_attr,
+                    'alt' => $title_attr,
                 ]
             );
         endif; ?>
@@ -97,13 +92,13 @@ if ($link) :
                     </span>
                 </h3>
 
-             <p class="text-gray11! text-sm! mt-2">
+                <p class="text-gray11! text-sm! mt-2">
                     <?php
                     // Get the content and display a trimmed excerpt (15 words)
                     $content = get_the_content();
                     $content = wp_strip_all_tags($content);
                     echo wp_trim_words($content, 15, '..');
-                ?>
+                    ?>
                 </p>
             </div>
             <p class="<?php echo esc_attr($item_date); ?> text-xs!">

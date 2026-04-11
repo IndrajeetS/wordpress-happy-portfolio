@@ -1,10 +1,12 @@
 <?php get_header(); ?>
 
-<div id="app" class="relative flex h-screen m-0! overflow-hidden text-gray-800 font-inter bg-gray2">
+<div id="app"
+    class="relative flex h-screen m-0! overflow-hidden text-gray-800 font-inter bg-gray2 dark:bg-appbg dark:text-gray12">
 
     <?php get_template_part('template-parts/components/app', 'navigation'); ?>
 
-    <main id="content" class="m-2 md:my-2 md:mr-2 md:ml-62 flex flex-col items-center h-[calc(100vh-1rem)] relative rounded-lg p-4 md:p-8 order-1 grow bg-white overflow-auto transition duration-200 ease-in-out shadow-md">
+    <main id="content"
+        class="m-2 md:my-2 md:mr-2 md:ml-62 flex flex-col items-center h-[calc(100vh-1rem)] relative rounded-lg p-4 md:p-8 order-1 grow bg-contentBg dark:bg-contentBg overflow-auto transition duration-200 ease-in-out shadow-md">
 
         <?php
         // Load content-{slug}.php dynamically

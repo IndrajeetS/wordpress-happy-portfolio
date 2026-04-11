@@ -174,7 +174,8 @@ const SPA = (function () {
 
     try {
       const res = await fetch(fetchUrl, { credentials: 'same-origin' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      // Allow 404 errors to pass through so we can render the custom 404 page content
+      if (!res.ok && res.status !== 404) throw new Error(`HTTP ${res.status}`);
       const html = await res.text();
 
       const doc = parser.parseFromString(html, 'text/html');
@@ -241,10 +242,20 @@ const SPA = (function () {
     const anchor = e.target.closest('a');
     if (!anchor || !anchor.href) return;
 
+    // --- GUARD CLAUSE: Ignore WordPress Admin Bar ---
+    if (e.target.closest('#wpadminbar') || anchor.closest('#wpadminbar')) return;
+
     let url;
     try { url = new URL(anchor.href); } catch (e) { return; }
 
-    if (url.origin !== window.location.origin || anchor.target === '_blank' || anchor.hasAttribute('download')) {
+    // --- GUARD CLAUSE: Ignore admin pages and standard excludes ---
+    if (
+      url.origin !== window.location.origin ||
+      anchor.target === '_blank' ||
+      anchor.hasAttribute('download') ||
+      url.pathname.includes('/wp-admin/') ||
+      url.pathname.includes('/wp-login.php')
+    ) {
       return;
     }
 

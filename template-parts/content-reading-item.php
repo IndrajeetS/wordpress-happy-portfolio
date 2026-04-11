@@ -16,9 +16,9 @@ if (!defined('ABSPATH')) {
 // 1. DATA RETRIEVAL
 // -----------------------------------------------------
 
-$post_id    = get_the_ID();
-$taxonomy   = 'reading_list_category';
-$link       = get_post_meta($post_id, '_wedo_reading_link', true);
+$post_id = get_the_ID();
+$taxonomy = 'reading_list_category';
+$link = get_post_meta($post_id, '_wedo_reading_link', true);
 $title_attr = the_title_attribute(['echo' => false]);
 
 // Get the featured image ID for responsive output
@@ -35,15 +35,13 @@ if ($terms && !is_wp_error($terms)) {
 // 2. HTML OUTPUT
 // -----------------------------------------------------
 
-if ($link) :
+if ($link):
     ?>
-    <a class="group rounded-lg flex flex-row justify-between items-start p-3 bg-white border border-[#e6e6e6] relative row-gap-4 transition-all duration-75 ease-in overflow-hidden hover:bg-hoverBg"
-       href="<?php echo esc_url($link); ?>"
-       title="<?php echo esc_attr($title_attr); ?>"
-       target="_blank"
-       rel="noopener noreferrer">
+    <a class="group rounded-lg flex flex-row justify-between items-start p-3 relative row-gap-4 transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-hoverBg"
+        href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($title_attr); ?>" target="_blank"
+        rel="noopener noreferrer">
 
-        <?php if ($thumbnail_id) :
+        <?php if ($thumbnail_id):
             // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
             // Using 'thumbnail' size is appropriate for a small 24x24px element.
             echo wp_get_attachment_image(
@@ -51,14 +49,14 @@ if ($link) :
                 'thumbnail', // Standard small size (e.g., 150x150)
                 false,
                 [
-                    'class'   => 'w-6 h-6 object-cover rounded-md mb-0', // Custom Tailwind classes for sizing
+                    'class' => 'w-6 h-6 object-cover rounded-md mb-0', // Custom Tailwind classes for sizing
                     'loading' => 'lazy',
-                    'alt'     => $title_attr,
+                    'alt' => $title_attr,
                 ]
             );
-        // Fallback for cases where no featured image is set, using a simple SVG or Font Icon (optional)
-        // else : ?>
-            <?php endif; ?>
+            // Fallback for cases where no featured image is set, using a simple SVG or Font Icon (optional)
+            // else : ?>
+        <?php endif; ?>
 
         <div class="flex-3 mb-0! ml-3">
             <h3 class="text-sm! mb-1! font-medium!">

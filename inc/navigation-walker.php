@@ -1,22 +1,22 @@
-
 <?php
 /**
  * Button_Walker_Nav_Menu
- * AdamDurrant-style flat tabs with NO layout shift
  * Applies your Tailwind active/inactive rules EXACTLY
  */
 
 if (!class_exists('Button_Walker_Nav_Menu')) {
 
-  class Button_Walker_Nav_Menu extends Walker_Nav_Menu {
+  class Button_Walker_Nav_Menu extends Walker_Nav_Menu
+  {
 
     private static $counter = 1;
 
-    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
+    {
 
       $page = sanitize_title($item->title);
       $icon = get_post_meta($item->ID, '_menu_item_icon', true);
-      $url  = $item->url;
+      $url = $item->url;
 
       // Cycle 1–9,0
       $num = self::$counter % 10;
@@ -33,7 +33,6 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
 
       $output .= $args->link_before;
 
-      // ⚡ FINAL STABLE ADAMDURRANT STYLE
       // Fully matches your Tailwind equivalents for inactive and active states
       $output .= '
       <span class="
@@ -42,9 +41,14 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
           w-full h-9
           box-border rounded-lg mt-0.5
           border-[0.5px] border-transparent
-          group-[.active]:bg-(--highlight)
-          group-[.active]:border-[0.5px] group-[.active]:border-(--highlightActiveBorder)
+
+          hover:bg-(--color-nav-hover) dark:hover:bg-(--color-nav-hover)
+
+          group-[.active]:bg-(--color-menuHighlight)
+          group-[.active]:border-[0.5px]
+          group-[.active]:border-(--color-menuActiveBorder)
           group-[.active]:shadow-[0_3px_3px_rgba(0,0,0,0.05)]
+
           transition-colors duration-100
         ">
       ';
@@ -52,18 +56,21 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
       // LEFT ITEM
       $output .= '<span class="flex items-center gap-2">';
       if (!empty($icon)) {
-        $output .= '<span class="iconify text-lg text-gray-700"
+        $output .= '<span class="iconify text-lg text-(--color-menuLabel)"
                       data-icon="' . esc_attr($icon) . '"></span>';
       }
-      $output .= '<span class="hidden md:inline text-sm">' . esc_html($item->title) . '</span>';
+      $output .= '<span class="hidden md:inline text-sm text-(--color-menuLabel)">' . esc_html($item->title) . '</span>';
       $output .= '</span>';
 
       // RIGHT NUMBER
       $output .= '
-        <span class="hidden md:flex text-xs font-mono text-gray-500 bg-gray-100
-                     h-4 w-4 items-center justify-center rounded-sm">
-            ' . $num . '
-        </span>
+      <span class="hidden md:flex text-xs font-mono
+                  text-(--color-nav-badgeText)
+                  bg-(--color-nav-badgeBg)
+                  h-4 w-4 items-center justify-center rounded-sm
+                  transition-colors duration-100">
+          ' . $num . '
+      </span>
       ';
 
       $output .= '</span>';
