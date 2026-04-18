@@ -62,22 +62,28 @@ $terms = get_terms([
     </div>
 
     <button class="absolute right-0 top-1/2 -translate-y-1/2
-         hover:bg-(--color-nav-badgeBg)
+         bg-(--color-nav-badgeBg)
          pl-2 pr-2 py-1.5
          cursor-pointer
          text-(--color-nav-badgeText)
          hover:text-(--color-menuLabel)
          rounded-sm
-         wedo-tab-btn" data-term="favourite" aria-label="Favourite">
+         wedo-tab-btn group" data-term="favourite" aria-label="Favourite">
 
-      <span class="iconify text-sm mr-1 text-(--color-nav-badgeText)!" data-icon="mynaui:filter" data-height="18"
+      <span class="iconify text-sm text-(--color-nav-badgeText)!" data-icon="mynaui:filter" data-height="18"
         data-width="18"></span>
-
-      </svg>
+      <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+               px-2 py-1 text-xs whitespace-nowrap
+               bg-gray-900 text-white rounded
+               opacity-0 pointer-events-none
+               group-hover:opacity-100
+               transition-opacity duration-200 group-hover:opacity-100">
+        Favourites <?php the_title(); ?>
+      </span>
     </button>
   </div>
 
-  <div id="tools-list" class="w-full flex flex-col  <?php echo ($post_type == 'reading_list') ? "gap-2" : "gap-0"; ?>"
+  <div id="tools-list" class="w-full flex flex-col <?php echo ($post_type == 'reading_list') ? "gap-2" : "gap-0"; ?>"
     data-tab-container>
   </div>
 </div>

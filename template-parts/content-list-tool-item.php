@@ -34,20 +34,24 @@ if ($link):
         href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($title_attr); ?>" target="_blank"
         rel="noopener noreferrer">
 
-        <?php if ($thumbnail_id):
-            // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
-            // Using 'thumbnail' size is appropriate for a small 40x40px element.
-            echo wp_get_attachment_image(
-                $thumbnail_id,
-                'thumbnail', // Standard small size (e.g., 150x150)
-                false,
-                [
-                    'class' => 'w-10 h-10 object-cover rounded-md', // Custom Tailwind classes for sizing
-                    'loading' => 'lazy',
-                    'alt' => $title_attr,
-                ]
-            );
-        endif; ?>
+        <?php if ($thumbnail_id): ?>
+            <div class="w-10 h-10 p-1 flex items-center justify-center rounded-md overflow-hidden 
+                bg-white dark:bg-gray3 border border-gray4 dark:border-gray5">
+
+                <?php
+                echo wp_get_attachment_image(
+                    $thumbnail_id,
+                    'full',
+                    false,
+                    [
+                        'class' => 'max-w-full max-h-full object-contain',
+                        'loading' => 'lazy',
+                        'alt' => $title_attr,
+                    ]
+                );
+                ?>
+            </div>
+        <?php endif; ?>
 
         <div class="py-5 mb-0! ml-8 flex-1 border-0 border-b border-b-gray4">
             <h3 class="text-sm! mb-1! font-semibold">

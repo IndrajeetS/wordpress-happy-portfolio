@@ -20,6 +20,13 @@ if (!defined('ABSPATH')) {
 $post_id = get_the_ID();
 $link = get_permalink();
 $post_title_attribute = the_title_attribute(['echo' => false]);
+$post_excerpt = has_excerpt()
+    ? get_the_excerpt()
+    : wp_trim_words(
+        wp_strip_all_tags(get_the_content()),
+        20,
+        '...'
+    );
 
 // Get the featured image ID for use with wp_get_attachment_image()
 $thumbnail_id = get_post_thumbnail_id($post_id);
@@ -67,12 +74,7 @@ if ($link):
             </h3>
 
             <p class="text-gray11! text-xs! mt-1 text-[13.8px] font-[390] overflow-hidden text-ellipsis line-clamp-2">
-                <?php
-                // Display a trimmed, controlled excerpt.
-                $content = get_the_content();
-                $content = wp_strip_all_tags($content);
-                echo wp_trim_words($content, 15, '..');
-                ?>
+                <?php echo esc_html($post_excerpt); ?>
             </p>
         </div>
     </a>
