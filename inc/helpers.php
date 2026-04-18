@@ -6,95 +6,140 @@
  * @subpackage Includes
  */
 
-/**
- * Get greeting based on local WordPress timezone.
- *
- * @return string Time-based greeting (e.g., "Good morning").
- */
-function wedo_get_time_based_greeting() {
-    // Define the specific timezone ID for IST (UTC+5:30)
-    $timezone_id = 'Asia/Kolkata';
-
-    try {
-        // Create the DateTimeZone object
-        $timezone = new DateTimeZone($timezone_id);
-
-        // Create datetime object using the specific, correct timezone
-        $date = new DateTime('now', $timezone);
-
-        $hour = (int) $date->format('G'); // 24-hour format (0–23)
-
-    } catch (Exception $e) {
-        // Fallback if there's any issue creating the DateTime objects
-        return "Hello, time error!";
-    }
-
-    // Determine greeting
-    // Current time 16:48 (Hour = 16) should fall into the Good afternoon range
-    if ($hour >= 5 && $hour < 12) {
-        $greeting = "Good morning";
-    } elseif ($hour >= 12 && $hour < 17) {
-        $greeting = "Good afternoon"; // THIS IS THE RANGE FOR HOUR 16 (4 PM)
-    } elseif ($hour >= 17 && $hour < 21) {
-        $greeting = "Good evening";
-    } else {
-        $greeting = "Good night";
-    }
-
-    // You can temporarily uncomment the line below to check what hour it calculated
-    // $greeting .= " (Hour: " . $hour . ")";
-
-    return $greeting;
-}
-
 
 /**
  * Generate Table of Contents from post content
  */
-function happy_portfolio_generate_toc($content) {
-    // Match <h2> and <h3> headings
-    preg_match_all('/<h([2-3])[^>]*>(.*?)<\/h[2-3]>/', $content, $matches, PREG_SET_ORDER);
+function happy_portfolio_generate_toc($content)
+{
+  // Match <h2> and <h3> headings, case-insensitive, dot-matches-all
+  preg_match_all('/<h([23])[^>]*>(.*?)<\/h\1>/is', $content, $matches, PREG_SET_ORDER);
 
-    if (empty($matches)) {
-        return ''; // No headings - no TOC
-    }
+  if (empty($matches)) {
+    return ''; // No headings - no TOC
+  }
 
-    $toc = '<div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">';
-    $toc .= '<h3 class="text-lg font-semibold mb-2! mt-0!">Table of Contents</h3>';
-    $toc .= '<ul class="space-y-1 list-disc pl-4">';
+  $toc = '<nav class="toc-container relative font-inter">';
+  $toc .= '<div class="text-base font-semibold mb-4 text-gray1! dark:text-gray1 mb-0">Table of contents</div>';
 
-    foreach ($matches as $match) {
-        $level = intval($match[1]);
-        $title = wp_strip_all_tags($match[2]);
+  // Container for the border and indicator
+  $toc .= '<div class="relative border-l border-gray5 dark:border-gray8">';
+  // The indicator line (blue)
+  $toc .= '<div id="toc-indicator" class="absolute left-[-1px] w-[2px] bg-toc-heightlight dark:bg-toc-heightlight transition-all duration-300 ease-out z-10 hidden" style="height: 20px; top: 0px;"></div>';
 
-        // Generate ID slug
-        $id = sanitize_title($title);
+  $toc .= '<ul class="space-y-4 list-none p-0 m-0 toc-list relative">';
 
-        // Add anchor to the real heading (handled later)
-        $toc .= '<li class="mb-0!">';
-        $toc .= '<a href="#'.esc_attr($id).'" class="text-sm! text-gray11! hover:text-gray12!">'.$title.'</a>';
-        $toc .= '</li>';
-    }
+  foreach ($matches as $match) {
+    $level = intval($match[1]);
+    $title = wp_strip_all_tags($match[2]);
 
-    $toc .= '</ul></div>';
+    // Generate ID slug
+    $id = sanitize_title($title);
 
-    return $toc;
+    $indent_class = ($level === 3) ? 'ml-8' : 'ml-3';
+    $text_class = ($level === 3) ? 'text-small font-light' : 'text-base font-medium';
+
+    $toc .= '<li class="relative leading-tight mb-2">';
+    $toc .= '<a href="#' . esc_attr($id) . '" data-target="' . esc_attr($id) . '" class="toc-item block transition-colors duration-200 ' . $indent_class . ' ' . $text_class . '">' . $title . '</a>';
+    $toc .= '</li>';
+  }
+
+  $toc .= '</ul></div></nav>';
+
+  return $toc;
 }
 
 /**
  * Add IDs to headings in content so TOC links work
  */
-function happy_portfolio_add_heading_ids($content) {
-    return preg_replace_callback(
-        '/<h([2-3])([^>]*)>(.*?)<\/h[2-3]>/',
-        function ($matches) {
-            $level = $matches[1];
-            $attrs = $matches[2];
-            $text  = wp_strip_all_tags($matches[3]);
-            $id    = sanitize_title($text);
+function happy_portfolio_add_heading_ids($content)
+{
+  return preg_replace_callback(
+    '/<h([2-3])([^>]*)>(.*?)<\/h[2-3]>/',
+    function ($matches) {
+      $level = $matches[1];
+      $attrs = $matches[2];
+      $text = wp_strip_all_tags($matches[3]);
+      $id = sanitize_title($text);
 
-            return '<h'.$level.' id="'.esc_attr($id).'"'.$attrs.'>'.$matches[3].'</h'.$level.'>';
-        },
-        $content
-    );
+      return '<h' . $level . ' id="' . esc_attr($id) . '"' . $attrs . '>' . $matches[3] . '</h' . $level . '>';
+    },
+    $content
+  );
+}
+
+/**
+ * Get related posts for a given post.
+ */
+function happy_portfolio_get_related_posts($post_id, $limit = 3)
+{
+  $post = get_post($post_id);
+
+  if (!$post)
+    return [];
+
+  // 1. Categories
+  $categories = wp_get_post_categories($post_id);
+
+  // 2. Tags
+  $tags = wp_get_post_tags($post_id, ['fields' => 'ids']);
+
+  // 3. Extract keywords from title
+  $title = strtolower($post->post_title);
+  $keywords = array_filter(explode(' ', $title), function ($word) {
+    return strlen($word) > 4; // ignore small words
+  });
+
+  // 4. Build query
+  $args = [
+    'post_type' => 'post',
+    'posts_per_page' => $limit,
+    'post__not_in' => [$post_id],
+    'ignore_sticky_posts' => 1,
+    'orderby' => 'date',
+    'order' => 'DESC',
+  ];
+
+  $tax_query = ['relation' => 'OR'];
+
+  if (!empty($categories)) {
+    $tax_query[] = [
+      'taxonomy' => 'category',
+      'field' => 'term_id',
+      'terms' => $categories,
+    ];
+  }
+
+  if (!empty($tags)) {
+    $tax_query[] = [
+      'taxonomy' => 'post_tag',
+      'field' => 'term_id',
+      'terms' => $tags,
+    ];
+  }
+
+  if (count($tax_query) > 1) {
+    // If we have categories or tags, use them!
+    $args['tax_query'] = $tax_query;
+  } else {
+    // Fallback ONLY if no categories and no tags exist: Semantic search based on title keywords
+    if (!empty($keywords)) {
+      $args['s'] = implode(' ', array_slice($keywords, 0, 5));
+    }
+  }
+
+  $query = new WP_Query($args);
+
+
+  return $query->posts;
+}
+
+/**
+ * Get a consistent color index for tags based on term slug
+ */
+function wedo_get_term_color($term_slug, $colors)
+{
+  $hash = crc32($term_slug); // stable hash
+  $index = abs($hash) % count($colors);
+  return $colors[$index];
 }

@@ -1,7 +1,7 @@
 <?php
 // Ensure this runs only if it's called within the WordPress environment
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+  exit; // Exit if accessed directly
 }
 ?>
 
@@ -27,22 +27,22 @@ $item_date = $args['item_date'] ?? "mt-2!";
 <div id="home-updates-grid" class="<?php echo esc_attr($update_section); ?>">
   <?php
   $updates = new WP_Query([
-    'post_type'      => 'personal_update',
+    'post_type' => 'personal_update',
     'posts_per_page' => 15,
-    'orderby'        => 'date',
-    'order'          => 'DESC',
+    'orderby' => 'date',
+    'order' => 'DESC',
   ]);
 
-  if ($updates->have_posts()) :
-    while ($updates->have_posts()) :
+  if ($updates->have_posts()):
+    while ($updates->have_posts()):
       $updates->the_post();
 
       // ✅ Correct array syntax — no echo inside array
       $modal_args = array(
-          'item_classes' => esc_attr($updates_item),
-          'item_content' => esc_attr($item_content),
-          'item_title' => esc_attr($item_title),
-          'item_date' => esc_attr($item_date),
+        'item_classes' => esc_attr($updates_item),
+        'item_content' => esc_attr($item_content),
+        'item_title' => esc_attr($item_title),
+        'item_date' => esc_attr($item_date),
       );
 
       // ✅ Pass $modal_args to the template part
@@ -50,7 +50,7 @@ $item_date = $args['item_date'] ?? "mt-2!";
 
     endwhile;
     wp_reset_postdata();
-  else :
+  else:
     echo '<p class="text-gray-500">No personal updates yet.</p>';
   endif;
   ?>

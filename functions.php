@@ -52,7 +52,7 @@ require_once get_template_directory() . '/inc/tax-techtool-category.php'; // Abo
 require_once get_template_directory() . '/inc/custom-post-types/cpt-working-experience.php'; // About -> work experience
 require_once get_template_directory() . '/inc/meta-boxes/meta-working-experience.php'; // About -> work experience
 require_once get_template_directory() . '/inc/meta-boxes/meta-contact.php'; // Contact -> Contact Info
-
+require_once get_template_directory() . '/inc/meta-boxes/meta-post-faq.php'; // Post -> Frequently Asked Questions
 /**
  * Resgiter Navigation Walker
  */

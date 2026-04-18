@@ -57,8 +57,8 @@ function happy_portfolio_preload_google_fonts()
 
     // 2. Asynchronously load the font stylesheet using media="print" trick.
     // The 'display=swap' parameter ensures the text is visible (using a fallback)
-    // before the custom font (Space Grotesk) has loaded.
-    $font_url = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap';
+    // before the custom font (Inter and Playfair Display) has loaded.
+    $font_url = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap';
 
     echo '<link href="' . esc_url($font_url) . '" rel="stylesheet" media="print" onload="this.media=\'all\'">' . "\n";
 }
@@ -227,6 +227,30 @@ function happy_portfolio_enqueue_frontend_assets()
         ['ajaxurl' => admin_url('admin-ajax.php')]
     );
 
+    wp_enqueue_script(
+        'happy-portfolio-lightbox',
+        $template_uri . '/assets/js/lightbox.js',
+        [],
+        happy_portfolio_asset_version($template_dir . '/assets/js/lightbox.js'),
+        true
+    );
+
+    wp_enqueue_script(
+        'happy-portfolio-toc',
+        $template_uri . '/assets/js/toc.js',
+        [],
+        happy_portfolio_asset_version($template_dir . '/assets/js/toc.js'),
+        true
+    );
+
+    wp_enqueue_script(
+        'happy-portfolio-accordion',
+        $template_uri . '/assets/js/accordion.js',
+        [],
+        happy_portfolio_asset_version($template_dir . '/assets/js/accordion.js'),
+        true
+    );
+
     // 5. Theme Toggle Script
     wp_enqueue_script(
         'happy-portfolio-theme-toggle',
@@ -316,6 +340,9 @@ function happy_portfolio_add_defer_to_scripts($tag, $handle)
         'happy-portfolio-copy-to-clip',
         'wedo-tools-filter',
         'wedo-helper-class',
+        'happy-portfolio-lightbox',
+        'happy-portfolio-toc',
+        'happy-portfolio-accordion',
         'happy-portfolio-fontawesome-js', // Defer new Font Awesome JS
     ];
 

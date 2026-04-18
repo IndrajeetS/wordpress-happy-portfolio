@@ -87,6 +87,54 @@ function happy_contact_reddit_callback($post) {
     <?php
 }
 
+/** Instagram — Social Link */
+function happy_contact_instagram_callback($post) {
+    wp_nonce_field('happy_contact_save_meta', 'happy_contact_meta_nonce');
+
+    $value = get_post_meta($post->ID, '_happy_contact_instagram', true);
+    ?>
+    <input
+        type="url"
+        name="happy_contact_instagram"
+        value="<?php echo esc_attr($value); ?>"
+        style="width:100%; padding:8px;"
+    />
+    <p style="color:#666;margin-top:5px;">Instagram profile URL.</p>
+    <?php
+}
+
+/** Facebook — Social Link */
+function happy_contact_facebook_callback($post) {
+    wp_nonce_field('happy_contact_save_meta', 'happy_contact_meta_nonce');
+
+    $value = get_post_meta($post->ID, '_happy_contact_facebook', true);
+    ?>
+    <input
+        type="url"
+        name="happy_contact_facebook"
+        value="<?php echo esc_attr($value); ?>"
+        style="width:100%; padding:8px;"
+    />
+    <p style="color:#666;margin-top:5px;">Facebook profile or page URL.</p>
+    <?php
+}
+
+/** GitHub — Social Link */
+function happy_contact_github_callback($post) {
+    wp_nonce_field('happy_contact_save_meta', 'happy_contact_meta_nonce');
+
+    $value = get_post_meta($post->ID, '_happy_contact_github', true);
+    ?>
+    <input
+        type="url"
+        name="happy_contact_github"
+        value="<?php echo esc_attr($value); ?>"
+        style="width:100%; padding:8px;"
+    />
+    <p style="color:#666;margin-top:5px;">GitHub profile URL.</p>
+    <?php
+}
+
 
 /**
  * ==========================================================
@@ -150,6 +198,33 @@ function happy_contact_meta_boxes() {
         'normal',
         'default'
     );
+
+    add_meta_box(
+        'happy_contact_instagram_field',
+        'Instagram Link',
+        'happy_contact_instagram_callback',
+        'page',
+        'normal',
+        'default'
+    );
+
+    add_meta_box(
+        'happy_contact_facebook_field',
+        'Facebook Link',
+        'happy_contact_facebook_callback',
+        'page',
+        'normal',
+        'default'
+    );
+
+    add_meta_box(
+        'happy_contact_github_field',
+        'GitHub Link',
+        'happy_contact_github_callback',
+        'page',
+        'normal',
+        'default'
+    );
 }
 add_action('add_meta_boxes', 'happy_contact_meta_boxes');
 
@@ -186,6 +261,9 @@ function happy_contact_save_meta($post_id) {
         'happy_contact_twitter'  => '_happy_contact_twitter',
         'happy_contact_linkedin' => '_happy_contact_linkedin',
         'happy_contact_reddit'   => '_happy_contact_reddit',
+        'happy_contact_instagram'=> '_happy_contact_instagram',
+        'happy_contact_facebook' => '_happy_contact_facebook',
+        'happy_contact_github'   => '_happy_contact_github',
     ];
 
     foreach ($fields as $form_key => $meta_key) {

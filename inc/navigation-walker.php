@@ -16,7 +16,21 @@ if (!class_exists('Button_Walker_Nav_Menu')) {
 
       $page = sanitize_title($item->title);
       $icon = get_post_meta($item->ID, '_menu_item_icon', true);
-      $url = $item->url;
+      $url  = $item->url;
+
+      // Fix: Ensure home links are dynamic to prevent hardcoded local URLs on production.
+      // 1. Check if the menu item is explicitly named "home"
+      // 2. Or check if it's the designated Front Page in WordPress settings
+      $is_home = ($page === 'home');
+      if (!$is_home && $item->type === 'post_type' && $item->object === 'page') {
+          if ((int)get_option('page_on_front') === (int)$item->object_id) {
+              $is_home = true;
+          }
+      }
+
+      if ($is_home) {
+          $url = home_url('/');
+      }
 
       // Cycle 1–9,0
       $num = self::$counter % 10;

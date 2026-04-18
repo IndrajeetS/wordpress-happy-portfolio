@@ -13,7 +13,7 @@ $terms = get_terms([
 
 <div class="mb-3.5! flex justify-between items-center!">
   <h2 class="text-lg! font-medium m-0!">Latest tools</h2>
-  <a href="/tech-tools/" class="text-xs
+  <a href="/tools/" class="text-xs
           text-gray11!
             duration-75 ease-in
             rounded--lg

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "postcss assets/css/input.css -o assets/css/output.css --env production",
     "watch": "postcss assets/css/input.css -o assets/css/output.css --watch",
-    "bundle": "npm run build && bestzip wedo-theme.zip inc/ template-parts/ assets/ *.php style.css screenshot.png"
+    "bundle": "npm run build && bestzip happy-creative-resume-wp.zip inc/ template-parts/ assets/ *.php style.css screenshot.png"
   },
   "keywords": [
     "wordpress",
@@ -17,7 +17,7 @@
     "theme",
     "SPA"
   ],
-  "author": "Your Name",
+  "author": "Indrajeet Singh",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {

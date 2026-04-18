@@ -2,8 +2,6 @@
 /**
  * Template Part for displaying a single Reading List item with categories.
  *
- * This file is intended to be used inside the WordPress Loop.
- *
  * @package HappyPortfolio
  */
 
@@ -12,18 +10,16 @@ if (!defined('ABSPATH')) {
 }
 
 // -----------------------------------------------------
-// 1. DATA RETRIEVAL AND SETUP (UNCHANGED)
+// 1. DATA SETUP
 // -----------------------------------------------------
 
 $post_id = get_the_ID();
 $title_attr = the_title_attribute(['echo' => false]);
 $link = get_post_meta($post_id, '_wedo_reading_link', true);
 $taxonomy = 'reading_list_category';
-
-// Get the featured image ID for responsive output
 $thumbnail_id = get_post_thumbnail_id($post_id);
 
-// Color setup for tags
+// Color palette
 $colors = [
     'bg-yellowTagBg',
     'bg-redTagBg',
@@ -31,17 +27,15 @@ $colors = [
     'bg-blueTagBg',
     'bg-greenTagBg'
 ];
-$colorIndex = 0;
 
 $terms = get_the_terms($post_id, $taxonomy);
 $is_favourite = false;
-$display_terms = []; // Array to store terms to be displayed
+$display_terms = [];
 
-// Process terms: identify 'Favourite' and prepare others for display
+// Separate "Favourite"
 if (!empty($terms) && !is_wp_error($terms)) {
     foreach ($terms as $term) {
-        $term_name = trim($term->name);
-        if ($term_name === 'Favourite') {
+        if (trim($term->name) === 'Favourite') {
             $is_favourite = true;
         } else {
             $display_terms[] = $term;
@@ -49,9 +43,8 @@ if (!empty($terms) && !is_wp_error($terms)) {
     }
 }
 
-
 // -----------------------------------------------------
-// 2. HTML OUTPUT (UPDATED)
+// 2. HTML OUTPUT
 // -----------------------------------------------------
 
 if ($link):
@@ -60,25 +53,29 @@ if ($link):
         href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($title_attr); ?>" target="_blank"
         rel="noopener noreferrer">
 
-        <?php if ($thumbnail_id):
-            // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
+        <div class="w-10 h-10 p-1 flex items-center justify-center rounded-md overflow-hidden 
+                bg-white dark:bg-gray3 border border-gray4 dark:border-gray5">
+
+            <?php
             echo wp_get_attachment_image(
                 $thumbnail_id,
-                'thumbnail', // Standard small size
+                'full',
                 false,
                 [
-                    'class' => 'w-6 h-6 object-cover rounded-md mb-0',
+                    'class' => 'max-w-full max-h-full object-contain',
                     'loading' => 'lazy',
                     'alt' => $title_attr,
                 ]
             );
-        endif; ?>
+            ?>
+        </div>
 
         <div class="flex flex-col ml-3 flex-1">
             <h3 class="text-sm! mb-0! font-medium!">
                 <?php the_title(); ?>
                 <span class="opacity-0 text-xs! group-hover:opacity-100 transition-opacity duration-300">↗</span>
             </h3>
+
             <div class="flex justify-between items-center">
                 <p class="text-gray11! text-xs! mb-0! hidden md:flex">
                     <?php echo esc_url(substr($link, 0, 50)) . (strlen($link) > 50 ? '...' : ''); ?>
@@ -88,28 +85,22 @@ if ($link):
                     <?php if (!empty($display_terms)): ?>
                         <?php foreach ($display_terms as $term): ?>
                             <?php
-                            // Get color based on index
-                            $colorClass = $colors[$colorIndex % count($colors)];
-                            $colorIndex++;
+                            $colorClass = wedo_get_term_color($term->slug, $colors);
                             ?>
-
-                            <span class="text-gray11! text-xs! mb-0 px-2 py-0.5 rounded-md <?php echo $colorClass; ?>">
+                            <span
+                                class="text-(--color-gray12) text-xs px-2 py-0.5 rounded-md border border-(--color-border) bg-(--color-gray2) dark:bg-(--color-gray3)">
                                 <?php echo esc_html($term->name); ?>
                             </span>
-
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
             </div>
-
         </div>
 
         <?php if ($is_favourite): ?>
             <div class="inline-block absolute top-[-2.5px] right-3 z-10">
                 <div class="group/favorite">
-
                     <span class="iconify text-base text-gray10!" data-icon="material-symbols:bookmark-sharp"></span>
-
                     <span
                         class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-gray12 text-white text-xs! whitespace-nowrap rounded opacity-0 group-hover/favorite:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
                         One of my favorites. You set the filter to only show favorites.
@@ -117,5 +108,6 @@ if ($link):
                 </div>
             </div>
         <?php endif; ?>
+
     </a>
 <?php endif; ?>
