@@ -66,11 +66,9 @@ if ($link):
             <h3 class="
             inline-flex! font-[390] tracking-[.1px] leading-[1.1] text-[15px] text-gray12 transition duration-250 ease-in-out text-lg! m-0!
             ">
-                <span class="inline-block mr-1">
+                <span class="inline-block">
                     <?php the_title(); ?>
                 </span>
-                <span
-                    class="inline-block opacity-0 text-sm! group-hover:opacity-100 transition-opacity duration-300">↗</span>
             </h3>
 
             <p class="text-gray11! text-xs! mt-1 text-[13.8px] font-[390] overflow-hidden text-ellipsis line-clamp-2">

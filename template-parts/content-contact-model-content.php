@@ -1,16 +1,22 @@
 <?php
-// The Contact page holds the data
 $contact_page = get_page_by_path('contact');
 
-// Fetch the custom fields
-$email = get_post_meta($contact_page->ID, '_happy_contact_email', true);
-$calendar = get_post_meta($contact_page->ID, '_happy_contact_calendar', true);
-$twitter = get_post_meta($contact_page->ID, '_happy_contact_twitter', true);
-$linkedin = get_post_meta($contact_page->ID, '_happy_contact_linkedin', true);
-$reddit = get_post_meta($contact_page->ID, '_happy_contact_reddit', true);
-$instagram = get_post_meta($contact_page->ID, '_happy_contact_instagram', true);
-$facebook = get_post_meta($contact_page->ID, '_happy_contact_facebook', true);
-$github = get_post_meta($contact_page->ID, '_happy_contact_github', true);
+// ✅ SAFETY CHECK
+if (!$contact_page || !isset($contact_page->ID)) {
+    return; // Stop rendering component completely
+}
+
+$contact_id = $contact_page->ID;
+
+// Fetch safely
+$email = get_post_meta($contact_id, '_happy_contact_email', true);
+$calendar = get_post_meta($contact_id, '_happy_contact_calendar', true);
+$twitter = get_post_meta($contact_id, '_happy_contact_twitter', true);
+$linkedin = get_post_meta($contact_id, '_happy_contact_linkedin', true);
+$reddit = get_post_meta($contact_id, '_happy_contact_reddit', true);
+$instagram = get_post_meta($contact_id, '_happy_contact_instagram', true);
+$facebook = get_post_meta($contact_id, '_happy_contact_facebook', true);
+$github = get_post_meta($contact_id, '_happy_contact_github', true);
 
 // Your component classes passed from args
 $component_classes = $args['contact_modal_classes'] ??

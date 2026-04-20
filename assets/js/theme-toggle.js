@@ -1,8 +1,4 @@
-/**
- * Theme Toggle Functionality
- * Handles Light, Dark, and Auto (system) themes.
- */
-document.addEventListener("DOMContentLoaded", () => {
+window.initThemeToggle = () => {
   const themeToggleItems = document.querySelectorAll(".theme-toggle-item");
   const html = document.documentElement;
 
@@ -58,6 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- EVENT LISTENERS ---
   themeToggleItems.forEach((item) => {
+    if (item.dataset.themeInit) return;
+    item.dataset.themeInit = "true";
+
     item.addEventListener("click", (e) => {
       e.preventDefault();
       applyTheme(item.dataset.theme);
@@ -65,15 +64,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- SYSTEM PREFERENCE CHANGE LISTENER ---
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      if (localStorage.getItem("theme") === "auto") {
-        if (e.matches) {
-          html.classList.add("dark");
-        } else {
-          html.classList.remove("dark");
+  if (!window.themePreferenceListenerInit) {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        if (localStorage.getItem("theme") === "auto") {
+          if (e.matches) {
+            html.classList.add("dark");
+          } else {
+            html.classList.remove("dark");
+          }
         }
-      }
-    });
-});
+      });
+    window.themePreferenceListenerInit = true;
+  }
+};
+
+document.addEventListener("DOMContentLoaded", window.initThemeToggle);

@@ -17,14 +17,14 @@ if (!defined('ABSPATH')) {
 
   <?php
   $author_id = get_the_author_meta('ID');
-  $image_id  = get_user_meta($author_id, 'profile_image_id', true);
+  $image_id = get_user_meta($author_id, 'profile_image_id', true);
 
   // Get full name if available, otherwise fallback to display name
   $first_name = get_the_author_meta('first_name', $author_id);
-  $last_name  = get_the_author_meta('last_name', $author_id);
-  $full_name  = trim($first_name . ' ' . $last_name);
+  $last_name = get_the_author_meta('last_name', $author_id);
+  $full_name = trim($first_name . ' ' . $last_name);
   if (empty($full_name)) {
-      $full_name = get_the_author_meta('display_name', $author_id);
+    $full_name = get_the_author_meta('display_name', $author_id);
   }
 
   $raw_content = get_the_content();
@@ -58,8 +58,8 @@ if (!defined('ABSPATH')) {
             } else {
               // Fallback to WordPress Default User Image (Gravatar)
               echo get_avatar($author_id, 40, '', '', [
-                  'class' => 'w-10 h-10 object-cover rounded-full',
-                  'alt'   => esc_attr($full_name) . ' profile image',
+                'class' => 'w-10 h-10 object-cover rounded-full',
+                'alt' => esc_attr($full_name) . ' profile image',
               ]);
             }
             ?>
@@ -82,7 +82,29 @@ if (!defined('ABSPATH')) {
 
       <div id="blog-content" class="content prose prose-gray max-w-none">
         <div id="post-content" class="mb-10">
-          <?php the_content(); ?>
+          <?php
+          // Step 1: Get raw content
+          $content = get_the_content();
+
+          // Step 2: Fix broken code blocks BEFORE WP filters
+          $content = preg_replace_callback(
+            '/<p>\s*<code>(.*?)<\/code>\s*<\/p>/is',
+            function ($matches) {
+              $code = $matches[1];
+
+              // Convert <br> to real line breaks
+              $code = str_replace(['<br>', '<br/>', '<br />'], "\n", $code);
+
+              return '<pre><code>' . $code . '</code></pre>';
+            },
+            $content
+          );
+
+          // Step 3: Now apply WordPress filters
+          $content = apply_filters('the_content', $content);
+
+          echo $content;
+          ?>
         </div>
       </div>
 

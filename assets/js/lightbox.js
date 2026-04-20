@@ -1,5 +1,5 @@
 // --- Lightbox / Image Carousel Logic ---
-document.addEventListener("DOMContentLoaded", function () {
+window.initLightbox = function () {
   const images = Array.from(document.querySelectorAll("#post-content img"));
   if (images.length === 0) return;
 
@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentIndex = 0;
 
   images.forEach((img, index) => {
+    // Reset any existing listeners if possible, but adding again is usually okay if we check for init
+    if (img.dataset.lightboxInit) return;
+    img.dataset.lightboxInit = "true";
+
     img.style.cursor = "pointer";
     const parentLink = img.closest("a");
     if (parentLink) {
@@ -64,20 +68,24 @@ document.addEventListener("DOMContentLoaded", function () {
       lightboxImg.removeAttribute("srcset");
     }
 
-    // ✅ COUNTER (you removed this)
-    lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
-
-    // ✅ NAV VISIBILITY (this is why buttons disappeared)
-    if (currentIndex > 0) {
-      btnPrev.classList.add("is-visible");
-    } else {
-      btnPrev.classList.remove("is-visible");
+    // ✅ COUNTER
+    if (lightboxCounter) {
+      lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
     }
 
-    if (currentIndex < images.length - 1) {
-      btnNext.classList.add("is-visible");
-    } else {
-      btnNext.classList.remove("is-visible");
+    // ✅ NAV VISIBILITY
+    if (btnPrev && btnNext) {
+      if (currentIndex > 0) {
+        btnPrev.classList.add("is-visible");
+      } else {
+        btnPrev.classList.remove("is-visible");
+      }
+
+      if (currentIndex < images.length - 1) {
+        btnNext.classList.add("is-visible");
+      } else {
+        btnNext.classList.remove("is-visible");
+      }
     }
   };
 
@@ -112,21 +120,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  btnClose.addEventListener("click", closeLightbox);
-  btnNext.addEventListener("click", nextImage);
-  btnPrev.addEventListener("click", prevImage);
+  // Use once or check for existing listeners if this is called multiple times on the same elements
+  if (!btnClose.dataset.listenerInit) {
+    btnClose.addEventListener("click", closeLightbox);
+    btnNext.addEventListener("click", nextImage);
+    btnPrev.addEventListener("click", prevImage);
+    btnClose.dataset.listenerInit = "true";
+  }
 
   // Close when clicking outside image
-  container.addEventListener("click", (e) => {
-    if (e.target === container) {
-      closeLightbox();
-    }
-  });
+  if (container && !container.dataset.listenerInit) {
+    container.addEventListener("click", (e) => {
+      if (e.target === container) {
+        closeLightbox();
+      }
+    });
+    container.dataset.listenerInit = "true";
+  }
 
-  document.addEventListener("keydown", (e) => {
-    if (!lightbox.classList.contains("is-active")) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") nextImage();
-    if (e.key === "ArrowLeft") prevImage();
-  });
-});
+  if (!window.lightboxKeydownInit) {
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("is-active")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    });
+    window.lightboxKeydownInit = true;
+  }
+};
+
+document.addEventListener("DOMContentLoaded", window.initLightbox);

@@ -1,21 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.initAccordion = function() {
     const faqButtons = document.querySelectorAll('.faq-button');
 
     faqButtons.forEach(button => {
+        if (button.dataset.accordionInit) return;
+        button.dataset.accordionInit = "true";
+
         button.addEventListener('click', function() {
             const faqItem = this.parentElement;
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
-
-            // Optional: Close all other accordions (uncomment if desired)
-            /*
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== faqItem) {
-                    item.classList.remove('is-open');
-                    item.querySelector('.faq-button').setAttribute('aria-expanded', 'false');
-                    item.querySelector('.faq-content').setAttribute('aria-hidden', 'true');
-                }
-            });
-            */
 
             // Toggle current item
             if (isExpanded) {
@@ -29,4 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+};
+
+document.addEventListener('DOMContentLoaded', window.initAccordion);
