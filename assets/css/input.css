@@ -214,9 +214,9 @@ a {
   transition: color 0.2s ease;
 }
 
-a:hover {
+/* a:hover {
   color: var(--color-accent);
-}
+} */
 
 /* ----------------------------------------------------- */
 /* BLOG PAGE STYLING — unchanged */
@@ -231,7 +231,8 @@ a:hover {
   line-height: 1.1;
 }
 
-#blog-content p {
+#blog-content p,
+#about-page-content p {
   color: var(--color-gray12);
   font-size: var(--text-lg);
   margin-bottom: 2rem;
@@ -251,30 +252,42 @@ a:hover {
   list-style-position: inside;
 }
 
-#blog-content a,
-#about-page .blog-content a {
+#home-updates-grid a {
   color: var(--color-gray12);
-  /* padding-right: 16px; */
-  /* display: inline-flex; */
-  /* padding-left: 4px; */
-  /* margin-left: -3px; */
-  /* margin-right: -2px; */
+  display: inline-flex;
+  padding-right: 16px;
+  padding-left: 4px;
+  margin-left: -3px;
+  margin-right: -2px;
   border-radius: 4px;
-  /* align-items: stretch; */
-  text-decoration: underline;
+  align-items: stretch;
+}
+
+#home-updates-grid a {
+  color: var(--color-gray12);
+  display: inline-flex;
+  align-items: stretch;
+  text-decoration: none;
+}
+
+/* #blog-content a,
+#about-page .about-career-info a,
+#home-updates-grid a {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s ease;
 }
 
 #blog-content a:hover,
-#about-page .blog-content a:hover {
-  /* background-color: var(--color-gray4); */
-  transition: all 0.2s ease;
-  /* color: var(--color-gray12); */
-  color: var(--color-toc-heightlight);
+#about-page .about-career-info a:hover {
+  background-size: 100% 1px; 
 }
 
-/* #blog-content a::after,
-#about-page .blog-content a::after {
-  display: inline-block;
+#about-page .about-career-info a::after {
+  display: none;
   content: "↗";
   width: 14px;
   height: 16px;
@@ -282,6 +295,12 @@ a:hover {
   font-size: 15px;
   margin-left: 2.5px;
   font-weight: 300;
+  text-decoration: none !important;
+} */
+
+/* #about-page .about-career-info a:hover::after {
+  display: inline-block;
+  text-decoration: none !important;
 } */
 
 #blog-content h1,
@@ -397,8 +416,7 @@ a:hover {
 /* ----------------------------------------------------- */
 
 #about-page .about-site-info,
-#about-page .about-tech-info,
-#about-page .about-career-info {
+#about-page .about-tech-info {
   font-family: var(--font-sans);
   color: var(--color-gray12);
   line-height: 1.7;
@@ -406,16 +424,8 @@ a:hover {
 }
 
 /* Ensure headings use Roboto + spacing */
-#about-page .about-site-info h2,
-#about-page .about-tech-info h2,
-#about-page .about-career-info h2 {
-  /* font-family: var(--font-heading);
-  font-size: 1.65rem;
-  font-weight: 600;
-  margin-top: 1.75rem;
-  margin-bottom: 0.75rem;
-  color: var(--color-gray12); */
-  /* @apply text-lg font-medium mb-2 text-gray12; */
+#about-page .about-site-info > h2,
+#about-page .about-tech-info > h2 {
   font-size: 1.125rem;
   margin-bottom: 0.875rem;
   color: var(--color-gray12);
@@ -423,39 +433,27 @@ a:hover {
   margin-top: 3.5rem;
 }
 
-#about-page .about-site-info h3,
-#about-page .about-tech-info h3,
-#about-page .about-career-info h3 {
-  /* font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem; */
+#about-page .about-site-info > h3,
+#about-page .about-tech-info > h3 {
   font-size: 1rem;
   color: var(--color-gray12);
   margin: 0;
   font-weight: 400;
 }
 
-#about-page .about-site-info p,
-#about-page .about-tech-info p,
-#about-page .about-career-info p {
+#about-page .about-site-info > p,
+#about-page .about-tech-info > p {
   margin-bottom: 1rem;
   color: var(--color-gray12);
 }
 
-#about-page .about-career-info .experience-item p {
-  margin-bottom: 1rem;
-  color: var(--color-gray12);
-}
-
-#about-page .about-site-info ul {
+#about-page .about-site-info > ul {
   color: var(--color-gray12);
   padding-left: 1rem;
   list-style-type: disc;
 }
 
-#about-page .about-site-info ol {
+#about-page .about-site-info > ol {
   color: var(--color-gray12);
   padding-left: 1rem;
   list-style-type: decimal;
@@ -465,11 +463,6 @@ a:hover {
   border-top: 1.5px solid var(--color-gray3);
   margin: 4rem 0 2rem;
   transition: border 0.25s ease;
-}
-
-#about-page .about-career-info .company-info p {
-  margin: 0;
-  color: var(--color-gray11);
 }
 
 /* ----------------------------------------------------- */
@@ -517,6 +510,21 @@ a:hover {
   padding: 1rem 1.25rem;
   text-align: left;
   border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  #post-content table:not(.comparison-table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Keeps the columns wide and stops text wrapping */
+  #post-content table:not(.comparison-table) th,
+  #post-content table:not(.comparison-table) td {
+    white-space: nowrap;
+  }
 }
 
 /* ----------------------------------------------------- */
@@ -774,6 +782,16 @@ a:hover {
   border-top: 1px solid var(--color-border);
 }
 
+#post-content a:not(.button) {
+  transition: color 0.2s ease;
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+#post-content a:not(.button):hover {
+  color: var(--color-accent);
+}
+
 /* ----------------------------------------------------- */
 /* FAQ ACCORDION */
 /* ----------------------------------------------------- */
@@ -807,6 +825,52 @@ a:hover {
   transform: rotate(45deg);
   transform-origin: center;
   transition: transform 0.3s ease;
+}
+
+/* ----------------------------------------------------- */
+/* PERSONAL UPDATES CAROUSEL / SWIPER STYLES             */
+/* ----------------------------------------------------- */
+
+/* Force all slides and their anchor tags to take full height of the container */
+.updates-swiper-container .swiper-slide {
+  height: auto;
+}
+
+.updates-swiper-container .swiper-slide a {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.updates-swiper-container .swiper-slide a > div {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Micro-animations and transitions for navigation buttons */
+#updates-prev,
+#updates-next {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#updates-prev:hover,
+#updates-next:hover {
+  transform: scale(1.08);
+}
+
+#updates-prev:active,
+#updates-next:active {
+  transform: scale(0.92);
+}
+
+/* Disabled navigation button state styling */
+#updates-prev.swiper-button-disabled,
+#updates-next.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ----------------------------------------------------- */

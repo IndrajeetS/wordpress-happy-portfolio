@@ -17,7 +17,7 @@ const SPA = (function () {
   // ---- Constants & cached selectors ----
   const CONTENT_SELECTOR = "main#content";
   const CONTENT_SCROLL_WRAPPER = "#content > div.overflow-y-scroll";
-  const MUTIPAGE_ROOT = "#mutipage-content";
+  const TABBED_LISTING_ROOT = "#tabbed-listing-root";
   const LOADER_ID = "loader";
   const CONTACT_MODAL_ID = "contact-modal";
 
@@ -145,7 +145,7 @@ const SPA = (function () {
   function initializePageContent(isAjax = false) {
     safeCall(window.getLocalTimeBasedGreeting);
 
-    const multiRoot = query(MUTIPAGE_ROOT);
+    const multiRoot = query(TABBED_LISTING_ROOT);
     if (
       multiRoot &&
       multiRoot.querySelector(".wedo-tab-btn") &&
@@ -157,6 +157,11 @@ const SPA = (function () {
     safeCall(window.wedoAfterAjaxInit);
     safeCall(window.initCodeCopyButtons);
     safeCall(window.initIframeLoaders);
+    safeCall(window.initLightbox);
+    safeCall(window.initTOC);
+    safeCall(window.initAccordion);
+    safeCall(window.initThemeToggle);
+    safeCall(window.initUpdatesCarousel);
   }
 
   // ---- Contact modal helpers ----
@@ -408,6 +413,7 @@ window.initIframeLoaders = function () {
     wrapper.appendChild(loader);
 
     const finishLoading = () => {
+      if (!loader.parentNode) return;
       loader.style.opacity = "0";
       loader.style.transition = "opacity 0.4s ease";
       setTimeout(() => loader.remove(), 400);
@@ -416,10 +422,23 @@ window.initIframeLoaders = function () {
     // Listen for iframe load
     iframe.addEventListener("load", finishLoading);
 
-    // Also cleanup in case it's already loaded or takes too long (10 seconds fallback)
+    // RACE CONDITION FIX: If the iframe is already loaded (fast browser or cached)
+    // checking readyState if same-origin, or just checking if contentWindow is available
+    try {
+      if (iframe.contentDocument && iframe.contentDocument.readyState === "complete") {
+        finishLoading();
+      }
+    } catch (e) {
+      // Cross-origin: the best we can do is check if the load event already fired
+      // or wait a very short time and check if we missed it.
+      // Most browsers will fire 'load' even if added slightly late, but if it finishes
+      // instantly, we might miss it.
+    }
+
+    // Also cleanup in case it takes too long (15 seconds fallback)
     setTimeout(() => {
       if (loader.parentNode) finishLoading();
-    }, 10000);
+    }, 15000);
   });
 };
 
@@ -428,3 +447,54 @@ document.addEventListener("DOMContentLoaded", () => {
     window.initIframeLoaders();
   }
 });
+
+// ----------------------------------------------------
+// PERSONAL UPDATES CAROUSEL
+// ----------------------------------------------------
+window.initUpdatesCarousel = function () {
+  const container = document.querySelector(".updates-swiper-container");
+  if (!container) return;
+
+  const slides = container.querySelectorAll(".swiper-slide");
+  if (slides.length <= 4) {
+    // If 4 or fewer slides, keep it as a grid
+    const wrapper = container.querySelector(".swiper-wrapper");
+    if (wrapper) {
+      wrapper.classList.remove("swiper-wrapper");
+      wrapper.classList.add(
+        "grid",
+        "grid-cols-1",
+        "sm:grid-cols-2",
+        "md:grid-cols-4",
+        "gap-6"
+      );
+    }
+    return;
+  }
+
+  // Ensure Swiper is available
+  if (typeof Swiper === "undefined") {
+    console.warn("Swiper is not loaded yet.");
+    return;
+  }
+
+  // Initialize Swiper
+  new Swiper(".updates-swiper-container", {
+    slidesPerView: 1,
+    spaceBetween: 24,
+    loop: true,
+    speed: 600,
+    navigation: {
+      nextEl: "#updates-next",
+      prevEl: "#updates-prev",
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 4,
+      },
+    },
+  });
+};

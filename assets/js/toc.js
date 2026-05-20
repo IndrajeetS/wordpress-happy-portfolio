@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.initTOC = function () {
   const tocItems = document.querySelectorAll(".toc-item");
   const indicator = document.getElementById("toc-indicator");
   const tocList = document.querySelector(".toc-list");
@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 1. Handle Clicks
   tocItems.forEach((item) => {
+    if (item.dataset.tocInit) return;
+    item.dataset.tocInit = "true";
+
     item.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -56,39 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-  // tocItems.forEach((item) => {
-  //   item.addEventListener("click", () => {
-  //     isScrollingByClick = true; // LOCK: Stop Observer logic
-  //     setActive(item);
-
-  //     // UNLOCK: Re-enable Observer after the scroll animation usually finishes
-  //     setTimeout(() => {
-  //       isScrollingByClick = false;
-  //     }, 800);
-  //   });
-  // });
 
   // 2. Intersection Observer
-  // Adjusted rootMargin to be more generous for the "top" of the page
   const observerOptions = {
     rootMargin: "-5% 0px -75% 0px",
     threshold: 0,
   };
-
-  // const observer = new IntersectionObserver((entries) => {
-  //   // Only run if we aren't currently jumping via a link click
-  //   if (isScrollingByClick) return;
-
-  //   entries.forEach((entry) => {
-  //     if (entry.isIntersecting) {
-  //       const id = entry.target.getAttribute("id");
-  //       const activeLink = document.querySelector(
-  //         `.toc-item[data-target="${id}"]`,
-  //       );
-  //       setActive(activeLink);
-  //     }
-  //   });
-  // }, observerOptions);
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -122,4 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.querySelector(`.toc-item[data-target="${hash}"]`) || tocItems[0];
     setActive(initialLink);
   }, 200);
-});
+};
+
+document.addEventListener("DOMContentLoaded", window.initTOC);

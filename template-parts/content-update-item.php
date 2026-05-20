@@ -1,19 +1,10 @@
 <?php
-/**
- * Template Part for displaying a dynamic Post/Personal Update Card.
- *
- * Handles logic for external links and post type differentiation.
- * Intended to be used inside the WordPress Loop.
- *
- * @package HappyPortfolio
- */
-
 if (!defined('ABSPATH')) {
     exit;
 }
 
 // -----------------------------------------------------
-// 1. DATA RETRIEVAL AND LINK LOGIC
+// 1. DATA
 // -----------------------------------------------------
 
 $post_id = get_the_ID();
@@ -21,89 +12,148 @@ $post_type = get_post_type($post_id);
 $is_personal_update = $post_type === 'personal_update';
 $title_attr = the_title_attribute(['echo' => false]);
 
-// --- CRITICAL LINK ASSIGNMENT LOGIC ---
 $link = get_permalink($post_id);
-$external_link = '';
-$link_target = ''; // target="_blank" | empty
-$link_rel = ''; // rel="noopener noreferrer" | empty
-$link_icon = '→'; // Default icon is internal arrow
+$link_target = '';
+$link_rel = '';
+$link_icon = '↗';
 
+// External link logic
 if ($is_personal_update) {
-    // Retrieve and validate the external link
-    $retrieved_link = get_post_meta($post_id, '_external_link', true);
+    $external_link = get_post_meta($post_id, '_external_link', true);
 
-    if (!empty($retrieved_link) && filter_var($retrieved_link, FILTER_VALIDATE_URL)) {
-        // Use external link, set target/rel, and change icon
-        $external_link = esc_url($retrieved_link);
-        $link = $external_link;
+    if (!empty($external_link) && filter_var($external_link, FILTER_VALIDATE_URL)) {
+        $link = esc_url($external_link);
         $link_target = '_blank';
         $link_rel = 'noopener noreferrer';
         $link_icon = '↗';
     }
 }
-// --- END CRITICAL LINK ASSIGNMENT LOGIC ---
 
+// -----------------------------------------------------
+// 2. IMAGE VALIDATION (STRICT)
+// -----------------------------------------------------
 
-// Get the featured image ID for responsive output
 $thumbnail_id = get_post_thumbnail_id($post_id);
 
+$is_image_valid = (
+    $thumbnail_id &&
+    wp_attachment_is_image($thumbnail_id) &&
+    wp_get_attachment_url($thumbnail_id)
+);
 
 // -----------------------------------------------------
-// 2. DYNAMIC CLASS ASSIGNMENT (Using passed $args)
+// 3. CLASSES (UNCHANGED STYLE)
 // -----------------------------------------------------
 
-// The $args variable is automatically available in the template part.
-// Use the null coalescing operator (??) to set a default if the argument wasn't passed.
-$item_classes = $args['item_classes'] ?? "group rounded-lg flex flex-col justify-between items-start p-4 relative transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-gray4";
-$item_content = $args['item_content'] ?? "flex-3 mb-0! mt-2.5";
+$item_classes = "group isolate relative z-0 hover:z-10 rounded-lg flex flex-col items-start p-4 bg-grayBg transition-all duration-75 ease-in overflow-hidden hover:bg-gray4";
+
+$item_content = $args['item_content'] ?? "flex-3 mb-0!";
 $item_title = $args['item_title'] ?? "block";
-$item_date = $args['item_date'] ?? "";
+$item_date = $args['item_date'] ?? "mt-0";
+
+$is_slider_view = $args['is_slider'] ?? false;
+
+if ($is_slider_view) {
+    // Vertical top-to-bottom layout classes
+    $layout_classes = "flex flex-col gap-3 items-stretch w-full";
+} else {
+    // Original list-view layout classes
+    $layout_classes = "flex flex-row gap-2 items-start";
+}
 
 // -----------------------------------------------------
-// 3. HTML OUTPUT
+// 4. OUTPUT
 // -----------------------------------------------------
 
 if ($link):
     ?>
-
-    <a class="<?php echo esc_attr($item_classes); ?>" href="<?php echo esc_url($link); ?>"
-        title="<?php echo esc_attr($title_attr); ?>" <?php if (!empty($link_target)): ?>
+    <a href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($title_attr); ?>" <?php if ($link_target): ?>
             target="<?php echo esc_attr($link_target); ?>" rel="<?php echo esc_attr($link_rel); ?>" <?php endif; ?>>
-        <?php if ($thumbnail_id):
-            // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
-            echo wp_get_attachment_image(
-                $thumbnail_id,
-                'thumbnail', // A small size suitable for a 32x32 display
-                false,
-                [
-                    'class' => 'mr-2.5! w-8 h-8 object-cover rounded-lg',
-                    'loading' => 'lazy',
-                    'alt' => $title_attr,
-                ]
-            );
-        endif; ?>
 
-        <div class="<?php echo esc_attr($item_content); ?> flex-2">
-            <div class="flex-2">
-                <h3 class="w-fit text-sm! font-medium! text-gray12 <?php echo esc_attr($item_title); ?>">
+        <div class="<?php echo esc_attr($item_classes); ?> <?php echo esc_attr($layout_classes); ?>">
+
+            <?php if ($is_slider_view): ?>
+                <!-- 1. Image and date in row, space between -->
+                <div class="flex flex-row justify-between items-center w-full">
+                    <?php if ($is_image_valid): ?>
+                        <div class="w-10 h-10 p-1 flex items-center justify-center rounded-md overflow-hidden 
+                bg-white dark:bg-gray3 border border-gray4 dark:border-gray5 flex-shrink-0">
+                            <?php echo wp_get_attachment_image(
+                                $thumbnail_id,
+                                'full',
+                                false,
+                                [
+                                    'class' => 'max-w-full max-h-full object-contain',
+                                    'loading' => 'lazy',
+                                    'alt' => esc_attr($title_attr),
+                                ]
+                            ); ?>
+                        </div>
+                    <?php else: ?>
+                        <div></div>
+                    <?php endif; ?>
+
+                    <p class="<?php echo esc_attr($item_date); ?> text-xs!">
+                        <?php echo esc_html(get_the_date('M Y')); ?>
+                    </p>
+                </div>
+
+                <!-- 2. Title full width -->
+                <h3 class="text-lg! font-medium text-gray12 w-full leading-snug">
                     <?php the_title(); ?>
-                    <span class="opacity-0 text-sm! group-hover:opacity-100 transition-opacity duration-300">
-                        <?php echo esc_html($link_icon); ?>
-                    </span>
                 </h3>
 
-                <p class="text-gray11! text-sm! mt-2">
+                <!-- 3. Content full width -->
+                <div class="text-gray11! text-xs! w-full leading-relaxed">
                     <?php
-                    // Get the content and display a trimmed excerpt (15 words)
-                    $content = get_the_content();
-                    $content = wp_strip_all_tags($content);
-                    echo wp_trim_words($content, 15, '..');
+                    remove_filter('the_content', 'wpautop');
+                    the_content();
+                    add_filter('the_content', 'wpautop');
                     ?>
-                </p>
-            </div>
-            <p class="<?php echo esc_attr($item_date); ?> text-xs!">
-                <?php echo esc_html(get_the_date('M Y')); ?>
-            </p>
+                </div>
+
+            <?php else: ?>
+                <!-- Original Layout (Untouched) -->
+                <?php if ($is_image_valid): ?>
+                    <div class="w-10 h-10 p-1 flex items-center justify-center rounded-md overflow-hidden 
+            bg-white dark:bg-gray3 border border-gray4 dark:border-gray5 flex-shrink-0">
+                        <?php echo wp_get_attachment_image(
+                            $thumbnail_id,
+                            'full',
+                            false,
+                            [
+                                'class' => 'max-w-full max-h-full object-contain',
+                                'loading' => 'lazy',
+                                'alt' => esc_attr($title_attr),
+                            ]
+                        ); ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="flex-1 flex flex-col justify-between">
+
+                    <div class="flex flex-row justify-between items-center mb-2">
+                        <h3 class="text-sm! font-medium text-gray12 group-hover:text-accent">
+                            <?php the_title(); ?>
+                        </h3>
+
+                        <p class="<?php echo esc_attr($item_date); ?> text-xs!">
+                            <?php echo esc_html(get_the_date('M Y')); ?>
+                        </p>
+                    </div>
+
+                    <div class="text-gray11! text-xs!">
+                        <?php
+                        remove_filter('the_content', 'wpautop');
+                        the_content();
+                        add_filter('the_content', 'wpautop');
+                        ?>
+                    </div>
+
+                </div>
+            <?php endif; ?>
+
         </div>
     </a>
+
 <?php endif; ?>

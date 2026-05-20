@@ -29,8 +29,8 @@ Built with a utility-first approach using **Tailwind CSS** and a clean, modular 
 | **WordPress**              | Core CMS                                     |
 | **PHP 8.x**                | Backend Theme Logic                          |
 | **Tailwind CSS**           | Utility-first styling framework              |
-| **PostCSS & Autoprefixer** | Asset compilation and browser compatibility  |
-| **JavaScript (ES6+)**      | Frontend interactivity and helper scripts    |
+| **PostCSS & esbuild**      | Asset compilation, JS bundling, & minification |
+| **Vanilla JS (ES6+)**      | Zero-jQuery, high-performance SPA routing    |
 | **bestzip**                | Used for automated production theme bundling |
 
 ---
@@ -81,10 +81,10 @@ To start developing and compiling assets, you need Node.js and NPM installed.
     npm install
     ```
 
-    _(This installs PostCSS, Tailwind, and the `bestzip` utility.)_
+    _(This installs PostCSS, Tailwind, esbuild, and the `bestzip` utility.)_
 
 3.  **Start the Watcher:**
-    Run this command during development. It watches your files and automatically recompiles the CSS whenever you make changes.
+    Run this command during development. It watches your files and automatically recompiles both CSS and JS whenever you make changes.
     ```bash
     npm run watch
     ```
@@ -101,7 +101,7 @@ To create a clean, compressed, production-ready version of the theme, use the `b
     npm run bundle
     ```
 
-2.  **Output:** This script performs the final Tailwind purge (removing all unused CSS) and creates a clean zip file named `happy-creative-resume-wp.zip` in the root directory, excluding `node_modules`, config files, and other development dependencies.
+2.  **Output:** This script performs the final Tailwind purge (removing all unused CSS), bundles and minifies all JavaScript using `esbuild`, and creates a clean zip file named `happy-creative-resume-wp.zip` in the root directory, excluding `node_modules`, config files, and other development dependencies.
 
 3.  **Deployment:** Upload the resulting `happy-creative-resume-wp.zip` via the WordPress admin panel (**Appearance** > **Themes** > **Add New**).
 

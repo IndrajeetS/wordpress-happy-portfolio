@@ -6,35 +6,38 @@ $experiences = get_posts([
     'order' => 'ASC'
 ]);
 
-foreach ($experiences as $exp) :
+foreach ($experiences as $exp):
 
     $timeframe = get_post_meta($exp->ID, '_happy_we_timeframe', true);
-    $link      = get_post_meta($exp->ID, '_happy_we_link', true);
-?>
+    $link = get_post_meta($exp->ID, '_happy_we_link', true);
 
-<div class="experience-item m-0 flex flex-row py-6">
+    $clean_content = $exp->post_content;
+    ?>
 
-    <?php if ($timeframe): ?>
-      <p class="text-sm text-gray10! mb-0! w-32"><?php echo esc_html($timeframe); ?></p>
+
+    <?php if ($link): ?>
+        <a href="<?php echo esc_url($link); ?>" target="_blank" class="no-underline! hover:no-underline!">
+            <div class="experience-item m-0 flex flex-row items-baseline py-4">
+                <?php if ($timeframe): ?>
+                    <p class="text-[10px]! font-bold text-gray8 uppercase tracking-[0.15em] w-24 shrink-0 pt-1">
+                        <?php echo esc_html($timeframe); ?>
+                    </p>
+                <?php endif; ?>
+
+                <div class="company-info flex-1">
+                    <h3 class="text-lg! font-medium text-gray12 w-full leading-tight mb-2">
+                        <?php echo esc_html($exp->post_title); ?>
+                    </h3>
+                    <?php if (!empty($clean_content)): ?>
+                        <div class="text-gray11 text-xs! leading-relaxed font-[390]">
+                            <?php echo wp_kses_post(trim($clean_content)); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </a>
+    <?php else: ?>
+        <?php echo esc_html($exp->post_title); ?>
     <?php endif; ?>
-
-    <div class="company-info">
-      <h3 class="">
-          <?php if ($link): ?>
-              <a href="<?php echo esc_url($link); ?>" target="_blank">
-                  <?php echo esc_html($exp->post_title); ?>
-              </a>
-          <?php else: ?>
-              <?php echo esc_html($exp->post_title); ?>
-          <?php endif; ?>
-      </h3>
-      <?php
-        $content = trim($exp->post_content);
-        if ($content) :
-        ?>
-        <div class="text-gray11!"><?php echo wp_kses_post(wpautop($exp->post_content)); ?></div>
-      <?php endif; ?>
-    </div>
-</div>
 
 <?php endforeach; ?>

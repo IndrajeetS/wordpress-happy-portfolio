@@ -14,6 +14,6 @@ function wedo_get_read_time($post_id = null, $wpm = 200)
 }
 ?>
 
-<div class="inline-flex min-w-min text-xs items-cente r">
+<div class="inline-flex min-w-min items-center text-xs">
     <span><?php echo wedo_get_read_time(); ?></span>
 </div>

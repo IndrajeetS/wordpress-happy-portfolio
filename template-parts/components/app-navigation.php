@@ -2,19 +2,16 @@
 $shared_walker = new Button_Walker_Nav_Menu();
 ?>
 
-<!-- ============================= -->
-<!-- DESKTOP SIDEBAR -->
-<!-- ============================= -->
 <aside
-  class="absolute hidden md:flex flex-col justify-between m-2 w-58 opacity-0 md:opacity-100 animate-fadeIn h-[calc(100vh-1rem)] px-[0.15rem] items-stretch">
-  <nav class="space-y-4 p-1.5 -m-1.5">
+  class="absolute hidden h-[calc(100vh-1rem)] w-58 animate-[fadeIn_0.15s_ease-out_forwards] flex-col justify-between px-[0.15rem] md:flex md:opacity-100 m-2 items-stretch">
+  <nav class="-m-1.5 space-y-4 p-1.5">
 
-    <div class="flex items-center mb-3 justify-center p-3">
-      <div class="text-2xl font-bold text-gray12!">Happy</div>
+    <div class="mb-3 flex items-center justify-center p-3">
+      <div class="text-2xl font-bold text-gray12"><?php echo esc_html(get_option('happy_nav_title', 'Happy')); ?></div>
     </div>
 
     <?php if (has_nav_menu('primary_menu')): ?>
-      <ul class="space-y-1 m-0!">
+      <ul class="m-0 space-y-1">
         <?php wp_nav_menu([
           'theme_location' => 'primary_menu',
           'container' => false,
@@ -25,9 +22,8 @@ $shared_walker = new Button_Walker_Nav_Menu();
     <?php endif; ?>
 
     <?php if (has_nav_menu('resources_menu')): ?>
-      <div class="m-0!">
-        <p class="pt-5 pb-2 pl-3.5 text-[11.6px]! font-[480] text-gray11! transition duration-150 ease-in-out">Resources
-        </p>
+      <div class="m-0">
+        <p class="pb-2 pl-3.5 pt-5 text-[11.6px] font-[480] text-gray11 transition duration-150 ease-in-out">Resources</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'resources_menu',
@@ -40,8 +36,8 @@ $shared_walker = new Button_Walker_Nav_Menu();
     <?php endif; ?>
 
     <?php if (has_nav_menu('connect_menu')): ?>
-      <div class="m-0!">
-        <p class="pt-5 pb-2 pl-3.5 text-[11.6px]! font-[480] text-gray11! transition duration-150 ease-in-out">Connect</p>
+      <div class="m-0">
+        <p class="pb-2 pl-3.5 pt-5 text-[11.6px] font-[480] text-gray11 transition duration-150 ease-in-out">Connect</p>
         <ul class="space-y-1">
           <?php wp_nav_menu([
             'theme_location' => 'connect_menu',
@@ -55,41 +51,30 @@ $shared_walker = new Button_Walker_Nav_Menu();
 
   </nav>
 
-  <!-- Theme Toggle (Desktop) -->
-  <div class="px-3.5 mb-2">
-    <div class="flex items-center justify-between p-1 bg-tabBg dark:bg-tabBg rounded-lg">
+  <div class="mb-2 px-3.5">
+    <div class="flex items-center justify-between rounded-lg bg-tabBg p-1 dark:bg-tabBg">
       <button
-        class="theme-toggle-item flex-1 flex cursor-pointer justify-center py-1.5 rounded-md transition-all duration-200"
+        class="theme-toggle-item flex flex-1 cursor-pointer justify-center rounded-md py-1.5 transition-all duration-200"
         data-theme="light" title="Light Mode">
-        <span class="iconify w-4 h-4" data-icon="heroicons:sun"></span>
+        <span class="iconify h-4 w-4" data-icon="heroicons:sun"></span>
       </button>
       <button
-        class="theme-toggle-item flex-1 flex cursor-pointer justify-center py-1.5 rounded-md transition-all duration-200"
+        class="theme-toggle-item flex flex-1 cursor-pointer justify-center rounded-md py-1.5 transition-all duration-200"
         data-theme="dark" title="Dark Mode">
-        <span class="iconify w-4 h-4" data-icon="heroicons:moon"></span>
+        <span class="iconify h-4 w-4" data-icon="heroicons:moon"></span>
       </button>
       <button
-        class="theme-toggle-item flex-1 flex cursor-pointer justify-center py-1.5 rounded-md transition-all duration-200"
+        class="theme-toggle-item flex flex-1 cursor-pointer justify-center rounded-md py-1.5 transition-all duration-200"
         data-theme="auto" title="System Theme">
-        <span class="iconify w-4 h-4" data-icon="heroicons:computer-desktop"></span>
+        <span class="iconify h-4 w-4" data-icon="heroicons:computer-desktop"></span>
       </button>
     </div>
   </div>
-
-  <!-- <div class="text-[10px] text-gray11 flex justify-center py-2 uppercase tracking-widest opacity-60">
-    © <?php echo date('Y'); ?> Happy
-  </div> -->
 </aside>
 
-<!-- ============================= -->
-<!-- MOBILE BOTTOM NAV -->
-<!-- ============================= -->
-<nav class="md:hidden p-2 w-full flex flex-row justify-between items-center shrink-0
-         transition-all duration-500 ease-in-out transform
-         overflow-x-scroll overflow-y-hidden fixed bg-gray2 bottom-0 h-[60px] top-auto
-         border-t border-linkContainer bg-sidebarBg z-10 animate-slideUp">
-
-  <ul class="flex flex-row space-x-1 items-center">
+<nav
+  class="fixed bottom-0 top-auto z-10 flex h-[60px] w-full shrink-0 animate-[slideUp_0.15s_ease-out_forwards] flex-row items-center justify-between overflow-x-scroll overflow-y-hidden border-t border-linkContainer bg-sidebarBg p-2 transition-all duration-500 ease-in-out md:hidden">
+  <ul class="flex flex-row items-center space-x-1">
     <?php
     $menus = ['primary_menu', 'resources_menu', 'connect_menu'];
     foreach ($menus as $menu) {
@@ -105,57 +90,15 @@ $shared_walker = new Button_Walker_Nav_Menu();
     ?>
   </ul>
 
-  <!-- Theme Toggle (Mobile) -->
-  <div class="flex items-center p-1 rounded-lg bg-tabBg dark:bg-tabBg ml-4 shrink-0">
-    <button class="theme-toggle-item px-2.5 py-1.5 rounded-md transition-all duration-200" data-theme="light">
-      <span class="iconify w-4 h-4" data-icon="heroicons:sun"></span>
+  <div class="ml-4 flex shrink-0 items-center rounded-lg bg-tabBg p-1 dark:bg-tabBg">
+    <button class="theme-toggle-item rounded-md px-2.5 py-1.5 transition-all duration-200" data-theme="light">
+      <span class="iconify h-4 w-4" data-icon="heroicons:sun"></span>
     </button>
-    <button class="theme-toggle-item px-2.5 py-1.5 rounded-md transition-all duration-200" data-theme="dark">
-      <span class="iconify w-4 h-4" data-icon="heroicons:moon"></span>
+    <button class="theme-toggle-item rounded-md px-2.5 py-1.5 transition-all duration-200" data-theme="dark">
+      <span class="iconify h-4 w-4" data-icon="heroicons:moon"></span>
     </button>
-    <button class="theme-toggle-item px-2.5 py-1.5 rounded-md transition-all duration-200" data-theme="auto">
-      <span class="iconify w-4 h-4" data-icon="heroicons:computer-desktop"></span>
+    <button class="theme-toggle-item rounded-md px-2.5 py-1.5 transition-all duration-200" data-theme="auto">
+      <span class="iconify h-4 w-4" data-icon="heroicons:computer-desktop"></span>
     </button>
   </div>
-
-  <!-- <div class="text-xs text-gray12 flex justify-center ml-4 whitespace-nowrap opacity-60">
-    © <?php echo date('Y'); ?>
-  </div> -->
 </nav>
-
-<!-- ============================= -->
-<!-- TAILWIND ANIMATIONS -->
-<!-- ============================= -->
-<style>
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateX(-5px);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(5px);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 0.15s ease-out forwards;
-  }
-
-  .animate-slideUp {
-    animation: slideUp 0.15s ease-out forwards;
-  }
-</style>

@@ -40,24 +40,24 @@ if (!defined('ABSPATH')) {
 
         <!-- Glow layer 1 -->
         <div class="absolute inset-0 rounded-full
-                bg-(--color-glow-primary)
+                bg-glow-primary
                 animate-[blobFloat_6s_ease-in-out_infinite,glowPulse_4s_ease-in-out_infinite]">
         </div>
 
         <!-- Glow layer 2 -->
         <div class="absolute inset-0 rounded-full
-                bg-(--color-glow-secondary)
+                bg-glow-secondary
                 animate-[blobFloatAlt_7s_ease-in-out_infinite,glowPulse_5s_ease-in-out_infinite]">
         </div>
 
         <!-- Center glass -->
         <div class="relative flex items-center justify-center w-full h-full
-                border border-(--color-border)
-                bg-(--color-contentBg)/40
+                border border-border
+                bg-contentBg/40
                 backdrop-blur-xl
                 rounded-full shadow-inner">
 
-            <svg class="w-10 h-10 text-(--color-gray11)
+            <svg class="w-10 h-10 text-gray11
                     animate-[iconFloat_3s_ease-in-out_infinite]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -83,17 +83,6 @@ if (!defined('ABSPATH')) {
 
             Back to Home
         </a>
-
-        <!-- Secondary -->
-        <button onclick="window.history.back()" class="px-5 py-2.5
-               rounded-md
-               border border-(--color-border)
-               text-(--color-gray11)
-               text-sm font-medium
-               transition-colors duration-150
-               hover:bg-(--color-nav-hover)">
-            Go Back
-        </button>
 
     </div>
 

@@ -4,33 +4,52 @@ function getLocalTimeBasedGreeting() {
   let greeting;
 
   // (Calculation logic remains here...)
-  if (hour >= 5 && hour < 12) {
-    greeting = "Good morning";
-  } else if (hour >= 12 && hour < 17) {
-    greeting = "Good afternoon";
-  } else if (hour >= 17 && hour < 23) {
-    greeting = "Good evening";
+  if (typeof happyGreetings !== 'undefined') {
+    if (hour >= 5 && hour < 12) {
+      greeting = happyGreetings.morning;
+    } else if (hour >= 12 && hour < 17) {
+      greeting = happyGreetings.afternoon;
+    } else if (hour >= 17 && hour < 23) {
+      greeting = happyGreetings.evening;
+    } else {
+      greeting = happyGreetings.night;
+    }
   } else {
-    greeting = "In dreamland. Do not disturb. 😴";
+    if (hour >= 5 && hour < 12) {
+      greeting = "Good morning";
+    } else if (hour >= 12 && hour < 17) {
+      greeting = "Good afternoon";
+    } else if (hour >= 17 && hour < 23) {
+      greeting = "Good evening";
+    } else {
+      greeting = "In dreamland. Do not disturb. 😴";
+    }
   }
 
-  const greetingElement = document.getElementById('time-based-greeting');
+  const greetingElement = document.getElementById("time-based-greeting");
 
   if (greetingElement) {
     // 1. Set up the observer BEFORE setting the content
-    const observer = new MutationObserver(mutationsList => {
+    const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
-        if (mutation.type === 'childList') {
+        if (mutation.type === "childList") {
           // Check if the element was removed
-          mutation.removedNodes.forEach(node => {
+          mutation.removedNodes.forEach((node) => {
             if (node === greetingElement) {
-              console.error("❌ ERROR: The greeting element was REMOVED from the DOM!");
+              console.error(
+                "❌ ERROR: The greeting element was REMOVED from the DOM!",
+              );
               observer.disconnect();
             }
           });
-        } else if (mutation.type === 'characterData' && greetingElement.textContent === "") {
+        } else if (
+          mutation.type === "characterData" &&
+          greetingElement.textContent === ""
+        ) {
           // Check if the text content was cleared
-          console.error("❌ ERROR: The greeting content was CLEARED by an external script!");
+          console.error(
+            "❌ ERROR: The greeting content was CLEARED by an external script!",
+          );
           observer.disconnect();
         }
       }
@@ -41,7 +60,7 @@ function getLocalTimeBasedGreeting() {
       childList: true,
       subtree: true,
       characterData: true,
-      attributes: true
+      attributes: true,
     });
 
     // 2. Set the greeting immediately

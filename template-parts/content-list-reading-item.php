@@ -71,13 +71,13 @@ if ($link):
         </div>
 
         <div class="flex flex-col ml-3 flex-1">
-            <h3 class="text-sm! mb-0! font-medium!">
+            <h3 class="text-sm mb-0 font-medium">
                 <?php the_title(); ?>
-                <span class="opacity-0 text-xs! group-hover:opacity-100 transition-opacity duration-300">↗</span>
+                <span class="opacity-0 text-xs group-hover:opacity-100 transition-opacity duration-300">↗</span>
             </h3>
 
             <div class="flex justify-between items-center">
-                <p class="text-gray11! text-xs! mb-0! hidden md:flex">
+                <p class="text-gray11 text-xs mb-0! hidden md:flex">
                     <?php echo esc_url(substr($link, 0, 50)) . (strlen($link) > 50 ? '...' : ''); ?>
                 </p>
 
@@ -102,7 +102,7 @@ if ($link):
                 <div class="group/favorite">
                     <span class="iconify text-base text-gray10!" data-icon="material-symbols:bookmark-sharp"></span>
                     <span
-                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-gray12 text-white text-xs! whitespace-nowrap rounded opacity-0 group-hover/favorite:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
+                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-gray12 text-white text-xs whitespace-nowrap rounded opacity-0 group-hover/favorite:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
                         One of my favorites. You set the filter to only show favorites.
                     </span>
                 </div>

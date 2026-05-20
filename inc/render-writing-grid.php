@@ -25,9 +25,9 @@ function render_recent_writing_grid($args = array())
         $posts_page_permalink = get_permalink(get_option('page_for_posts'));
         ?>
         <div class="mb-3.5! flex justify-between items-center!">
-            <h2 class="text-lg! font-medium m-0!"><?php echo esc_html($title); ?></h2>
+            <h2 class="text-xl! font-medium m-0!"><?php echo esc_html($title); ?></h2>
             <?php if ($posts_page_permalink): ?>
-                <a class="text-xs text-gray11! duration-75 ease-in rounded--lg -mr-[5px] rounded-lg p-[5.5px_9px]"
+                <a class="text-xs text-gray11! duration-75 ease-in rounded-lg p-[5.5px_9px] hover:text-primary! tracking-wide"
                     href="/blog/">View All</a>
             <?php endif; ?>
         </div>

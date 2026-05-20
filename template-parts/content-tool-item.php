@@ -49,11 +49,10 @@ if ($link):
             );
         endif; ?>
 
-        <h3 class="text-sm! mb-1! font-medium!">
+        <h3 class="text-lg! font-medium text-gray12 w-full leading-tight mb-0.5">
             <?php the_title(); ?>
-            <span class="opacity-0 text-xs! group-hover:opacity-100 transition-opacity duration-300">↗</span>
         </h3>
-        <p class="text-xs! text-gray11! mb-1.5">
+        <p class="text-gray11 text-xs! leading-relaxed font-[390]">
             <?php
             // Use custom description if available, otherwise fallback to trim(get_the_excerpt())
             echo !empty($description) ? esc_html($description) : trim(get_the_excerpt());
