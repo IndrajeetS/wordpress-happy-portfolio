@@ -69,12 +69,12 @@
 
   // --- AJAX loader ---
   async function loadTools(term = "all") {
-    const root = qs("#mutipage-content");
+    const root = qs("#tabbed-listing-root");
     const container = qs("#tools-list");
 
     if (!root || !container) {
       console.warn(
-        "wedo-custom: loadTools aborted — #mutipage-content or #tools-list missing",
+        "wedo-custom: loadTools aborted — #tabbed-listing-root or #tools-list missing",
       );
       return;
     }
@@ -137,7 +137,7 @@
   }
   function setActiveTabElement(btn) {
     if (!btn) return;
-    const root = btn.closest("#mutipage-content") || document;
+    const root = btn.closest("#tabbed-listing-root") || document;
     clearTabActiveState(root);
     btn.classList.remove("text-gray10");
     btn.classList.add("active", "text-gray12");
@@ -185,7 +185,7 @@
 
   // --- initializer (idempotent) ---
   function initWedoTabsActual(isAjaxLoad = false) {
-    const root = qs("#mutipage-content");
+    const root = qs("#tabbed-listing-root");
     const container = qs("#tools-list");
 
     if (!root || !container) {

@@ -214,9 +214,9 @@ a {
   transition: color 0.2s ease;
 }
 
-a:hover {
+/* a:hover {
   color: var(--color-accent);
-}
+} */
 
 /* ----------------------------------------------------- */
 /* BLOG PAGE STYLING — unchanged */
@@ -252,7 +252,6 @@ a:hover {
   list-style-position: inside;
 }
 
-#blog-content .about-career-info a,
 #home-updates-grid a {
   color: var(--color-gray12);
   display: inline-flex;
@@ -264,7 +263,6 @@ a:hover {
   align-items: stretch;
 }
 
-#about-page .about-career-info a,
 #home-updates-grid a {
   color: var(--color-gray12);
   display: inline-flex;
@@ -272,7 +270,7 @@ a:hover {
   text-decoration: none;
 }
 
-#blog-content a,
+/* #blog-content a,
 #about-page .about-career-info a,
 #home-updates-grid a {
   text-decoration: none;
@@ -285,7 +283,7 @@ a:hover {
 
 #blog-content a:hover,
 #about-page .about-career-info a:hover {
-  background-size: 100% 1px; /* 👈 underline animates in */
+  background-size: 100% 1px; 
 }
 
 #about-page .about-career-info a::after {
@@ -298,12 +296,12 @@ a:hover {
   margin-left: 2.5px;
   font-weight: 300;
   text-decoration: none !important;
-}
+} */
 
-#about-page .about-career-info a:hover::after {
+/* #about-page .about-career-info a:hover::after {
   display: inline-block;
   text-decoration: none !important;
-}
+} */
 
 #blog-content h1,
 #blog-content h2,
@@ -418,8 +416,7 @@ a:hover {
 /* ----------------------------------------------------- */
 
 #about-page .about-site-info,
-#about-page .about-tech-info,
-#about-page .about-career-info {
+#about-page .about-tech-info {
   font-family: var(--font-sans);
   color: var(--color-gray12);
   line-height: 1.7;
@@ -428,8 +425,7 @@ a:hover {
 
 /* Ensure headings use Roboto + spacing */
 #about-page .about-site-info > h2,
-#about-page .about-tech-info > h2,
-#about-page .about-career-info > h2 {
+#about-page .about-tech-info > h2 {
   font-size: 1.125rem;
   margin-bottom: 0.875rem;
   color: var(--color-gray12);
@@ -438,8 +434,7 @@ a:hover {
 }
 
 #about-page .about-site-info > h3,
-#about-page .about-tech-info > h3,
-#about-page .about-career-info > h3 {
+#about-page .about-tech-info > h3 {
   font-size: 1rem;
   color: var(--color-gray12);
   margin: 0;
@@ -447,8 +442,7 @@ a:hover {
 }
 
 #about-page .about-site-info > p,
-#about-page .about-tech-info > p,
-#about-page .about-career-info > p {
+#about-page .about-tech-info > p {
   margin-bottom: 1rem;
   color: var(--color-gray12);
 }
@@ -516,6 +510,21 @@ a:hover {
   padding: 1rem 1.25rem;
   text-align: left;
   border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  #post-content table:not(.comparison-table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Keeps the columns wide and stops text wrapping */
+  #post-content table:not(.comparison-table) th,
+  #post-content table:not(.comparison-table) td {
+    white-space: nowrap;
+  }
 }
 
 /* ----------------------------------------------------- */
@@ -773,6 +782,16 @@ a:hover {
   border-top: 1px solid var(--color-border);
 }
 
+#post-content a:not(.button) {
+  transition: color 0.2s ease;
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+#post-content a:not(.button):hover {
+  color: var(--color-accent);
+}
+
 /* ----------------------------------------------------- */
 /* FAQ ACCORDION */
 /* ----------------------------------------------------- */
@@ -806,6 +825,52 @@ a:hover {
   transform: rotate(45deg);
   transform-origin: center;
   transition: transform 0.3s ease;
+}
+
+/* ----------------------------------------------------- */
+/* PERSONAL UPDATES CAROUSEL / SWIPER STYLES             */
+/* ----------------------------------------------------- */
+
+/* Force all slides and their anchor tags to take full height of the container */
+.updates-swiper-container .swiper-slide {
+  height: auto;
+}
+
+.updates-swiper-container .swiper-slide a {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.updates-swiper-container .swiper-slide a > div {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Micro-animations and transitions for navigation buttons */
+#updates-prev,
+#updates-next {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#updates-prev:hover,
+#updates-next:hover {
+  transform: scale(1.08);
+}
+
+#updates-prev:active,
+#updates-next:active {
+  transform: scale(0.92);
+}
+
+/* Disabled navigation button state styling */
+#updates-prev.swiper-button-disabled,
+#updates-next.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ----------------------------------------------------- */

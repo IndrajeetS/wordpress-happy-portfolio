@@ -31,13 +31,13 @@ if (!defined('ABSPATH')) {
   $toc_html = happy_portfolio_generate_toc($raw_content);
   ?>
 
-  <div class="w-full max-w-[85rem] mx-auto flex flex-col xl:flex-row gap-8 xl:gap-16 relative items-start">
+  <div class="w-full max-w-340 mx-auto flex flex-col xl:flex-row gap-8 xl:gap-16 relative items-start">
 
     <!-- Main Content Column -->
-    <div style="max-width:50rem" class="py-8 w-full xl:w-[calc(100%-20rem)] shrink-0 mx-auto xl:mx-0">
+    <div class="py-8 w-full max-w-200 xl:w-[calc(100%-20rem)] shrink-0 mx-auto xl:mx-0">
 
       <div id="post-header">
-        <h1 class="font-3xl! font-medium! mb-8 text-gray12 w-3/5">
+        <h1 class="font-heading text-2xl md:text-3xl font-medium mb-8 text-gray12 w-full">
           <?php the_title(); ?>
         </h1>
 
@@ -80,7 +80,27 @@ if (!defined('ABSPATH')) {
 
       </div>
 
-      <div id="blog-content" class="content prose prose-gray max-w-none">
+      <div id="blog-content" class="content prose prose-gray max-w-none 
+        prose-p:text-lg prose-p:text-gray12 prose-p:mb-8 
+        prose-ul:mb-8 prose-ol:mb-8 
+        prose-li:text-base prose-li:text-gray12 prose-li:leading-relaxed prose-li:ml-4 prose-li:list-disc prose-li:list-inside 
+        prose-a:no-underline prose-a:text-gray12 prose-a:bg-[linear-gradient(currentColor,currentColor)] prose-a:bg-[size:0%_1px] prose-a:bg-[position:0_100%] prose-a:bg-no-repeat prose-a:transition-[background-size] prose-a:duration-200 prose-a:ease-in-out hover:prose-a:bg-[size:100%_1px]
+        prose-pre:bg-gray3 dark:prose-pre:bg-[#111] prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4 prose-pre:my-6 prose-pre:overflow-x-auto prose-pre:text-sm prose-pre:leading-relaxed prose-pre:shadow-sm prose-pre:[scrollbar-width:thin]
+        prose-pre:prose-code:bg-transparent prose-pre:prose-code:p-0 prose-pre:prose-code:border-none prose-pre:prose-code:shadow-none prose-pre:prose-code:text-inherit prose-pre:prose-code:text-sm prose-pre:prose-code:block prose-pre:prose-code:white-space-pre
+        prose-pre:prose-code:[&_span]:bg-transparent!
+        [&_:not(pre)>code]:bg-gray4 dark:[&_:not(pre)>code]:bg-gray5 [&_:not(pre)>code]:text-gray12 [&_:not(pre)>code]:p-[3px_6px] [&_:not(pre)>code]:rounded [&_:not(pre)>code]:text-[0.85rem]
+        [&_q]:italic [&_q]:text-gray11 dark:[&_q]:text-gray10 [&_q]:quotes-['“'_'”'_'‘'_'’'] [&_q]:before:content-[open-quote] [&_q]:after:content-[close-quote]
+        [&_table]:w-full [&_table]:border-collapse [&_table]:border-spacing-0 [&_table]:overflow-hidden [&_table]:rounded-lg [&_table]:bg-contentBg [&_table]:border [&_table]:border-border [&_table]:mb-8 [&_table]:shadow-sm dark:[&_table]:shadow-none
+        [&_table]:border-none [&_th]:border-none [&_td]:border-none [&_thead]:border-none
+        [&_table:not(.comparison-table)_thead_tr]:bg-gray3 dark:[&_table:not(.comparison-table)_thead_tr]:bg-gray4
+        [&_table:not(.comparison-table)_th]:text-gray12 [&_table:not(.comparison-table)_th]:text-[0.95rem] [&_table:not(.comparison-table)_th]:font-semibold [&_table:not(.comparison-table)_th]:p-[1rem_1.25rem] [&_table:not(.comparison-table)_th]:text-left [&_table:not(.comparison-table)_th]:border-b [&_table:not(.comparison-table)_th]:border-border
+        [&_table:not(.comparison-table)_td]:p-[0.9rem_1.25rem] [&_table:not(.comparison-table)_td]:text-gray11 [&_table:not(.comparison-table)_td]:text-left
+        [&_table:not(.comparison-table)_tbody_tr]:border-b [&_table:not(.comparison-table)_tbody_tr]:border-border
+        [&_table:not(.comparison-table)_tbody_tr:nth-child(even)]:bg-gray2 dark:[&_table:not(.comparison-table)_tbody_tr:nth-child(even)]:bg-gray3
+        [&_table:not(.comparison-table)_tbody_tr]:transition-colors [&_table:not(.comparison-table)_tbody_tr]:duration-200 hover:[&_table:not(.comparison-table)_tbody_tr]:bg-hoverBg dark:hover:[&_table:not(.comparison-table)_tbody_tr]:bg-gray4
+        [&_figure]:mt-2 [&_figure]:mb-8 [&_figure_img]:rounded-lg [&_figure_img]:shadow-sm
+        [&_blockquote]:relative [&_blockquote]:my-10 [&_blockquote]:p-[1.25rem_1.5rem_1.25rem_1.75rem] [&_blockquote]:bg-gray2 dark:[&_blockquote]:bg-gray3 [&_blockquote]:border-l-3 [&_blockquote]:border-toc-heightlight [&_blockquote]:rounded-lg [&_blockquote]:text-gray12 [&_blockquote]:text-[1.05rem] [&_blockquote]:leading-relaxed [&_blockquote]:transition-all [&_blockquote]:duration-250 [&_blockquote]:before:content-['“'] [&_blockquote]:before:absolute [&_blockquote]:before:left-3 [&_blockquote]:before:top-[0.2rem] [&_blockquote]:before:text-[2.5rem] [&_blockquote]:before:leading-none [&_blockquote]:before:text-gray8 [&_blockquote]:before:opacity-60 dark:[&_blockquote]:before:text-inherit [&_blockquote_p]:m-0 [&_blockquote_p]:text-gray12 [&_blockquote_cite]:block [&_blockquote_cite]:mt-3 [&_blockquote_cite]:text-[0.85rem] [&_blockquote_cite]:text-gray11
+        [&_hr]:border-none [&_hr]:border-t [&_hr]:border-border">
         <div id="post-content" class="mb-10">
           <?php
           // Step 1: Get raw content
@@ -112,8 +132,8 @@ if (!defined('ABSPATH')) {
       $post_faqs = get_post_meta(get_the_ID(), '_happy_post_faqs', true);
       if (!empty($post_faqs) && is_array($post_faqs)):
         ?>
-        <div id="faq-section" class="mt-16 border-t border-gray-200 pt-10">
-          <h2 class="text-3xl! font-medium! mb-8 text-gray12 w-full text-center">
+        <div id="faq-section" class="mt-16 border-t border-border pt-10">
+          <h2 class="text-xl font-medium mb-8 text-gray12 w-full">
             Frequent Questions
           </h2>
           <div class="faq-container flex flex-col gap-4">
@@ -149,8 +169,8 @@ if (!defined('ABSPATH')) {
       ?>
 
       <?php if (!empty($related_posts)): ?>
-        <div class="mt-16 border-t border-gray-200 pt-10">
-          <h2 class="text-xl font-semibold mb-6 text-gray-900">
+        <div class="mt-16 border-t border-border pt-10">
+          <h2 class="font-heading text-lg font-medium mb-6 text-gray12">
             Related Articles
           </h2>
 
@@ -170,8 +190,7 @@ if (!defined('ABSPATH')) {
     <!-- Table of Contents Sidebar -->
     <?php if ($toc_html): ?>
       <aside id="post-toc-sidebar"
-        class="hidden xl:block w-[18rem] shrink-0 sticky top-10 self-start max-h-[calc(100vh-6rem)] overflow-y-auto"
-        style="scrollbar-width: thin;">
+        class="hidden xl:block w-[18rem] shrink-0 sticky top-10 self-start max-h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:thin]">
         <?php echo $toc_html; ?>
       </aside>
     <?php endif; ?>
@@ -181,9 +200,11 @@ if (!defined('ABSPATH')) {
 <?php endwhile; ?>
 
 <!-- Fullscreen Image Lightbox -->
-<div id="image-lightbox" class="fixed inset-0 z-[10000] flex-col items-center justify-center backdrop-blur-md">
+<div id="image-lightbox"
+  class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[#0b0c10]/95 backdrop-blur-xl opacity-0 invisible pointer-events-none transition-all duration-250 ease-in-out group [&.is-active]:opacity-100 [&.is-active]:visible [&.is-active]:pointer-events-auto">
   <!-- Top Bar -->
-  <div class="top-bar absolute top-0 left-0 right-0 p-6 flex justify-between items-center text-gray-300 z-50">
+  <div
+    class="top-bar absolute top-0 left-0 right-0 p-6 flex justify-between items-center text-gray-300 z-50 opacity-0 -translate-y-2.5 transition-all duration-250 ease-in-out group-[.is-active]:opacity-100 group-[.is-active]:translate-y-0">
     <div id="lightbox-counter" class="text-sm font-medium tracking-widest text-gray-400">1 / 10</div>
     <button id="lightbox-close"
       class="p-2.5 rounded-md bg-white/5 hover:bg-white/10 hover:text-white transition-all cursor-pointer border border-white/5 bg-gray-900!">
@@ -198,7 +219,7 @@ if (!defined('ABSPATH')) {
 
   <!-- Navigation Arrows -->
   <button id="lightbox-prev"
-    class="lightbox-nav-btn absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-3 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-md transition-all z-50 cursor-pointer border border-white/5 bg-gray-900!">
+    class="lightbox-nav-btn absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-3 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-md z-50 cursor-pointer border border-white/5 bg-gray-900! opacity-0 pointer-events-none scale-90 transition-all duration-200 ease-in-out [&.is-visible]:opacity-100 [&.is-visible]:pointer-events-auto [&.is-visible]:scale-100">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="15 18 9 12 15 6"></polyline>
@@ -206,7 +227,7 @@ if (!defined('ABSPATH')) {
     <span class="sr-only">Previous</span>
   </button>
   <button id="lightbox-next"
-    class="lightbox-nav-btn absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-3 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-md transition-all z-50 cursor-pointer border border-white/5 bg-gray-900!">
+    class="lightbox-nav-btn absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-3 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-md z-50 cursor-pointer border border-white/5 bg-gray-900! opacity-0 pointer-events-none scale-90 transition-all duration-200 ease-in-out [&.is-visible]:opacity-100 [&.is-visible]:pointer-events-auto [&.is-visible]:scale-100">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="9 18 15 12 9 6"></polyline>
@@ -218,7 +239,7 @@ if (!defined('ABSPATH')) {
   <div id="lightbox-image-container"
     class="relative w-full h-[100dvh] flex items-center justify-center p-4 sm:p-12 md:p-20 cursor-zoom-out">
     <img id="lightbox-image" src="" alt="Enlarged"
-      class="max-w-full max-h-full object-contain drop-shadow-2xl cursor-default">
+      class="opacity-0 scale-96 transition-all duration-300 ease-in-out max-w-full max-h-[calc(100dvh-8rem)] max-sm:max-h-[calc(100dvh-5rem)] object-contain drop-shadow-2xl cursor-default [&.is-loaded]:opacity-100 [&.is-loaded]:scale-100">
   </div>
 </div>
 

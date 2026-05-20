@@ -5,7 +5,7 @@
 if (!defined('ABSPATH'))
     exit;
 
-get_template_part('page-multipage', null, [
+get_template_part('template-parts/tabbed-listing', null, [
     'post_type' => 'resource_tools',
     'taxonomy' => 'resource_category',
     'item_part' => 'list-tool-item',

@@ -43,37 +43,55 @@ $category_name = ($categories && !is_wp_error($categories)) ? esc_html($categori
 
 if ($link):
     ?>
-    <a class="group rounded-lg flex flex-col justify-between items-start p-4 relative row-gap-4 transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-hoverBg"
+    <a class="group rounded-xl flex flex-col p-4 transition-all duration-300 ease-out border border-border bg-readingBg hover:bg-gray2"
         href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($post_title_attribute); ?>">
 
-        <?php if ($thumbnail_id):
-            // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
-            // This outputs a complete <img> tag with loading="lazy", srcset, and sizes
-            // attributes for responsive image delivery.
-            echo wp_get_attachment_image(
-                $thumbnail_id,
-                'medium', // Use 'medium' size (or a custom size tailored for your grid)
-                false,
-                [
-                    'class' => 'w-full h-38 object-cover rounded-lg',
-                    'loading' => 'lazy', // Ensure lazy loading is enabled
-                    'alt' => $post_title_attribute, // Re-use the title for better accessibility
-                ]
-            );
-        endif; ?>
+        <?php if ($thumbnail_id): ?>
+            <div
+                class="relative aspect-video w-full flex items-center justify-center bg-grayBg dark:bg-gray3 rounded-lg overflow-hidden border border-border/40 mb-4">
+                <?php
+                echo wp_get_attachment_image(
+                    $thumbnail_id,
+                    'medium',
+                    false,
+                    [
+                        'class' => 'max-w-[98%] max-h-[98%] object-contain p-4 group-hover:scale-105 transition-transform duration-500',
+                        'loading' => 'lazy',
+                        'alt' => $post_title_attribute,
+                    ]
+                );
+                ?>
+            </div>
+        <?php endif; ?>
 
-        <div class="flex-3 mb-0! mt-4">
-            <h3 class="
-            inline-flex! font-[390] tracking-[.1px] leading-[1.1] text-[15px] text-gray12 transition duration-250 ease-in-out text-lg! m-0!
-            ">
-                <span class="inline-block">
-                    <?php the_title(); ?>
+        <div class="flex flex-col grow">
+            <div class="flex justify-between mb-3">
+                <?php if (!empty($categories) && !is_wp_error($categories)): ?>
+                    <div class="flex flex-wrap gap-2">
+                        <?php foreach (array_slice($categories, 0, 2) as $category): ?>
+                            <span
+                                class="text-[9px] font-bold uppercase text-gray8 tracking-[0.15em] group-hover:text-gray12 transition-all duration-300">
+                                <?php echo esc_html($category->name); ?>
+                            </span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <span
+                    class="text-[9px] font-bold text-gray8 uppercase tracking-[0.15em] group-hover:text-gray12 transition-all duration-300">
+                    <?php echo get_the_date('M d, Y'); ?>
                 </span>
+            </div>
+
+            <h3 class="text-lg! font-medium text-gray12 w-full leading-tight mb-2">
+                <?php the_title(); ?>
             </h3>
 
-            <p class="text-gray11! text-xs! mt-1 text-[13.8px] font-[390] overflow-hidden text-ellipsis line-clamp-2">
-                <?php echo esc_html($post_excerpt); ?>
-            </p>
+            <?php if ($post_excerpt): ?>
+                <p class="text-gray11 text-xs! leading-relaxed font-[390]">
+                    <?php echo esc_html($post_excerpt); ?>
+                </p>
+            <?php endif; ?>
         </div>
     </a>
 <?php endif; ?>

@@ -151,16 +151,51 @@ function happy_portfolio_enqueue_frontend_assets()
         true // Load in footer, will be deferred by filter below
     );
 
+    // 4. Swiper Carousel Assets
+    wp_enqueue_style(
+        'swiper-css',
+        'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+        [],
+        '11.0.0'
+    );
+
+    wp_enqueue_script(
+        'swiper-js',
+        'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+        [],
+        '11.0.0',
+        true
+    );
+
 
     // --- Scripts (All will be DEFERRED by the filter below) ---
 
-    // 1. Main Theme JavaScript
+    // 1. Main Theme JavaScript Bundle (esbuild minified, zero jQuery dependency)
     wp_enqueue_script(
         'happy-portfolio-main-js',
-        $template_uri . '/assets/js/main.js',
-        ['jquery'],
-        happy_portfolio_asset_version($template_dir . '/assets/js/main.js'),
+        $template_uri . '/assets/js/main.min.js',
+        [], // Removed 'jquery' dependency
+        happy_portfolio_asset_version($template_dir . '/assets/js/main.min.js'),
         true
+    );
+
+    // Localize AJAX URL for the bundled scripts
+    wp_localize_script(
+        'happy-portfolio-main-js',
+        'wedoAjax',
+        ['ajaxurl' => admin_url('admin-ajax.php')]
+    );
+
+    // Localize greetings configuration for the bundled scripts
+    wp_localize_script(
+        'happy-portfolio-main-js',
+        'happyGreetings',
+        [
+            'morning'   => get_option('happy_greeting_morning', 'Good morning'),
+            'afternoon' => get_option('happy_greeting_afternoon', 'Good afternoon'),
+            'evening'   => get_option('happy_greeting_evening', 'Good evening'),
+            'night'     => get_option('happy_greeting_night', 'In dreamland. Do not disturb. 😴'),
+        ]
     );
 
     // 2. Iconify Library
@@ -169,94 +204,6 @@ function happy_portfolio_enqueue_frontend_assets()
         'https://code.iconify.design/3/3.1.0/iconify.min.js',
         [],
         '3.1.0',
-        true
-    );
-
-    // 3. Custom Scripts
-    wp_enqueue_script(
-        'wedo-custom-scripts',
-        $template_uri . '/assets/js/wedo-custom.js',
-        ['jquery'],
-        happy_portfolio_asset_version($template_dir . '/assets/js/wedo-custom.js'),
-        true
-    );
-
-    // Localize AJAX URL for wedo-custom-scripts
-    wp_localize_script(
-        'wedo-custom-scripts',
-        'wedoAjax',
-        ['ajaxurl' => admin_url('admin-ajax.php')]
-    );
-
-    // 4. Component-specific Scripts
-    wp_enqueue_script(
-        'happy-portfolio-greeting',
-        $template_uri . '/assets/js/greeting.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/greeting.js'),
-        true
-    );
-
-    wp_enqueue_script(
-        'happy-portfolio-localTime',
-        $template_uri . '/assets/js/local-time.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/local-time.js'),
-        true
-    );
-
-    wp_enqueue_script(
-        'happy-portfolio-copy-to-clip',
-        $template_uri . '/assets/js/copy-to-clip.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/copy-to-clip.js'),
-        true
-    );
-
-    wp_enqueue_script(
-        'wedo-helper-class',
-        $template_uri . '/assets/js/helper.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/helper.js'),
-        true
-    );
-
-    wp_localize_script(
-        'wedo-tools-filter',
-        'wedoAjax',
-        ['ajaxurl' => admin_url('admin-ajax.php')]
-    );
-
-    wp_enqueue_script(
-        'happy-portfolio-lightbox',
-        $template_uri . '/assets/js/lightbox.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/lightbox.js'),
-        true
-    );
-
-    wp_enqueue_script(
-        'happy-portfolio-toc',
-        $template_uri . '/assets/js/toc.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/toc.js'),
-        true
-    );
-
-    wp_enqueue_script(
-        'happy-portfolio-accordion',
-        $template_uri . '/assets/js/accordion.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/accordion.js'),
-        true
-    );
-
-    // 5. Theme Toggle Script
-    wp_enqueue_script(
-        'happy-portfolio-theme-toggle',
-        $template_uri . '/assets/js/theme-toggle.js',
-        [],
-        happy_portfolio_asset_version($template_dir . '/assets/js/theme-toggle.js'),
         true
     );
 }
@@ -274,14 +221,6 @@ function happy_portfolio_enqueue_admin_assets($hook)
     if ('nav-menus.php' === $hook) {
 
         // --- Stylesheets ---
-
-        // 1. Tailwind CSS (for consistent admin styling)
-        wp_enqueue_style(
-            'happy-portfolio-tailwind-admin',
-            $template_uri . '/assets/css/output.css',
-            [],
-            happy_portfolio_asset_version($template_dir . '/assets/css/output.css')
-        );
 
         // 2. Custom Icon Picker CSS
         wp_enqueue_style(
@@ -334,16 +273,8 @@ function happy_portfolio_add_defer_to_scripts($tag, $handle)
     $scripts_to_defer = [
         'happy-portfolio-main-js',
         'iconify',
-        'wedo-custom-scripts',
-        'happy-portfolio-greeting',
-        'happy-portfolio-localTime',
-        'happy-portfolio-copy-to-clip',
-        'wedo-tools-filter',
-        'wedo-helper-class',
-        'happy-portfolio-lightbox',
-        'happy-portfolio-toc',
-        'happy-portfolio-accordion',
         'happy-portfolio-fontawesome-js', // Defer new Font Awesome JS
+        'swiper-js', // Defer Swiper JS
     ];
 
     if (in_array($handle, $scripts_to_defer, true)) {

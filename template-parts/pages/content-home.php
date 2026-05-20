@@ -15,5 +15,6 @@
   <?php get_template_part('template-parts/content', 'home-updates'); ?>
   <?php get_template_part('template-parts/content', 'home-writings'); ?>
   <?php get_template_part('template-parts/content', 'home-readings'); ?>
+  <?php get_template_part('template-parts/content', 'home-projects'); ?>
   <?php get_template_part('template-parts/content', 'home-tools'); ?>
 </div>

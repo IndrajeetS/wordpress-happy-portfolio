@@ -11,15 +11,11 @@ $terms = get_terms([
 ]);
 ?>
 
-<div class="mb-3.5! flex justify-between items-center!">
-  <h2 class="text-lg! font-medium m-0!">Latest tools</h2>
-  <a href="/tools/" class="text-xs
-          text-gray11!
-            duration-75 ease-in
-            rounded--lg
-            -mr-[5px]
-            rounded-lg
-            p-[5.5px_9px]">View All</a>
+<div class="mb-3.5 flex justify-between items-center">
+  <h2 class="text-xl! font-medium m-0!">Latest tools</h2>
+  <a href="/tools/"
+    class="text-xs text-gray11! duration-75 ease-in rounded-lg p-[5.5px_9px] hover:text-primary! tracking-wide"
+    rounded-lg p-[5.5px_9px]">View All</a>
 </div>
 <div id="home-tools-grid" class="grid gap-4 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 w-full mb-14!">
   <!-- Default: Tech Tools -->

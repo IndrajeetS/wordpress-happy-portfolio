@@ -37,34 +37,29 @@ if ($terms && !is_wp_error($terms)) {
 
 if ($link):
     ?>
-    <a class="group rounded-lg flex flex-row justify-between items-start p-3 relative row-gap-4 transition-all duration-75 ease-in overflow-hidden border border-border bg-readingBg dark:bg-readingBg hover:bg-hoverBg"
+    <a class="group rounded-xl flex flex-row justify-start items-center p-4 relative transition-all duration-300 ease-in border border-border bg-readingBg hover:bg-hoverBg"
         href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr($title_attr); ?>" target="_blank"
         rel="noopener noreferrer">
 
         <?php if ($thumbnail_id):
-            // 💡 PERFORMANCE IMPROVEMENT: Using wp_get_attachment_image()
-            // Using 'thumbnail' size is appropriate for a small 24x24px element.
             echo wp_get_attachment_image(
                 $thumbnail_id,
-                'thumbnail', // Standard small size (e.g., 150x150)
+                'thumbnail',
                 false,
                 [
-                    'class' => 'w-6 h-6 object-cover rounded-md mb-0', // Custom Tailwind classes for sizing
+                    'class' => 'w-6 h-6 object-cover rounded-md flex-shrink-0',
                     'loading' => 'lazy',
                     'alt' => $title_attr,
                 ]
             );
-            // Fallback for cases where no featured image is set, using a simple SVG or Font Icon (optional)
-            // else : ?>
-        <?php endif; ?>
+        endif; ?>
 
-        <div class="flex-3 mb-0! ml-3">
-            <h3 class="text-sm! mb-1! font-medium!">
+        <div class="flex flex-col ml-3 flex-1">
+            <h3 class="text-lg! font-medium text-gray12 w-full leading-tight capitalize">
                 <?php the_title(); ?>
             </h3>
-            <p class="text-gray11! text-xs! mb-0">
-                <?php echo $category_name; // Outputs the retrieved category name ?>
-                <span class="opacity-0 text-xs! group-hover:opacity-100 transition-opacity duration-300">↗</span>
+            <p class="text-gray11 text-xs! leading-relaxed line-clamp-3 font-[390]">
+                <?php echo $category_name; ?>
             </p>
         </div>
     </a>

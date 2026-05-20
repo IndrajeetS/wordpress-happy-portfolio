@@ -49,6 +49,8 @@ require_once HAPPY_PORTFOLIO_INC_DIR . '/custom-post-types/custom-post-types-rea
 require_once HAPPY_PORTFOLIO_INC_DIR . '/custom-post-types/custom-post-types-updates.php'; // Personal Updates
 require_once get_template_directory() . '/inc/cpt-techtools.php'; // About -> tech tools
 require_once get_template_directory() . '/inc/tax-techtool-category.php'; // About -> tech tools
+require_once get_template_directory() . '/inc/cpt-projects.php'; // Projects CPT
+require_once get_template_directory() . '/inc/tax-project-category.php'; // Projects Category Taxonomy
 require_once get_template_directory() . '/inc/custom-post-types/cpt-working-experience.php'; // About -> work experience
 require_once get_template_directory() . '/inc/meta-boxes/meta-working-experience.php'; // About -> work experience
 require_once get_template_directory() . '/inc/meta-boxes/meta-contact.php'; // Contact -> Contact Info
@@ -81,3 +83,8 @@ require_once HAPPY_PORTFOLIO_INC_DIR . 'render-writing-grid.php';
 
 add_filter('the_content', 'happy_portfolio_add_heading_ids', 9);
 
+
+/**
+ * Theme Settings Page
+ */
+require_once HAPPY_PORTFOLIO_INC_DIR . 'theme-settings.php';
