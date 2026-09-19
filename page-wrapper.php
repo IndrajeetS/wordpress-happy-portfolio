@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div id="app"
-    class="relative flex h-screen m-0! overflow-hidden text-gray-800 font-inter bg-gray2 dark:bg-appbg dark:text-gray12">
+    class="relative flex h-screen m-0! overflow-hidden text-gray-800 font-sans bg-gray2 dark:bg-appbg dark:text-gray12">
 
     <?php get_template_part('template-parts/components/app', 'navigation'); ?>
 

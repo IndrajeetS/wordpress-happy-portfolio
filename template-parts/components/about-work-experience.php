@@ -17,9 +17,9 @@ foreach ($experiences as $exp):
 
     <?php if ($link): ?>
         <a href="<?php echo esc_url($link); ?>" target="_blank" class="no-underline! hover:no-underline!">
-            <div class="experience-item m-0 flex flex-row items-baseline py-4">
+            <div class="experience-item m-0 flex flex-row items-start py-4">
                 <?php if ($timeframe): ?>
-                    <p class="text-[10px]! font-bold text-gray8 uppercase tracking-[0.15em] w-24 shrink-0 pt-1">
+                    <p class="text-xs! font-bold text-gray8 uppercase tracking-normal w-24 pt-0.5">
                         <?php echo esc_html($timeframe); ?>
                     </p>
                 <?php endif; ?>

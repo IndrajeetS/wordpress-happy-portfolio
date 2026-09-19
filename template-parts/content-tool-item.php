@@ -18,7 +18,10 @@ if (!defined('ABSPATH')) {
 
 $post_id = get_the_ID();
 $link = get_post_meta($post_id, '_wedo_external_link', true);
-$description = get_post_meta($post_id, '_wedo_techtool_description', true);
+$description_key = get_post_type($post_id) === 'projects'
+    ? '_wedo_project_description'
+    : '_wedo_techtool_description';
+$description = get_post_meta($post_id, $description_key, true);
 $title_attr = the_title_attribute(['echo' => false]);
 
 // Get the featured image ID for responsive output

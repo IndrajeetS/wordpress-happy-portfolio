@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying Resources content in page-multipage.php
+ * Template part for displaying Resources page content.
  */
 if (!defined('ABSPATH'))
     exit;

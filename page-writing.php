@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: writing Page
+ * Template Name: Writing Page
  */
 
 $content_template = 'writing';

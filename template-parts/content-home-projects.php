@@ -11,12 +11,15 @@ $projects = new WP_Query([
   'order' => 'DESC', // List in descending order (latest first)
 ]);
 
+$projects_page = get_page_by_path('projects');
+$projects_url = $projects_page ? get_permalink($projects_page) : home_url('/projects/');
+
 if ($projects->have_posts()):
 ?>
 
 <div class="mb-3.5 flex justify-between items-center">
   <h2 class="text-xl! font-medium m-0!">Projects</h2>
-  <a href="<?php echo esc_url(home_url('/projects/')); ?>"
+  <a href="<?php echo esc_url($projects_url); ?>"
     class="text-xs text-gray11! duration-75 ease-in rounded-lg p-[5.5px_9px] hover:text-primary! tracking-wide">View All</a>
 </div>
 <div id="home-projects-grid" class="grid gap-4 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 w-full mb-14!">

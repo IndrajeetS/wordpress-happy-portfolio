@@ -4,7 +4,8 @@ if (!defined('ABSPATH'))
 ?>
 
 <div id="blog-breadcrumb" class="mb-3 flex items-center gap-1">
-  <a class="text-xs text-gray11 hover:text-gray12" href="/blog">Blog</a>
+  <?php $writing_page = get_page_by_path('writing'); ?>
+  <a class="text-xs text-gray11 hover:text-gray12" href="<?php echo esc_url($writing_page ? get_permalink($writing_page) : home_url('/writing/')); ?>">Writing</a>
   <span class="text-xs text-gray11">&gt;</span>
   <p class="mb-0 w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-xs text-gray11">
     <?php the_title(); ?>
