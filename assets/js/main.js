@@ -28,6 +28,9 @@ const SPA = (function () {
     TOOLS: "tools",
     READING: "reading",
     ABOUT: "about",
+    PROJECTS: "projects",
+    RESOURCES: "resources",
+    WRITING: "writing",
     CONTACT: "contact",
     TWITTER: "twitter",
   };
@@ -38,6 +41,9 @@ const SPA = (function () {
     SLUGS.TOOLS,
     SLUGS.READING,
     SLUGS.ABOUT,
+    SLUGS.PROJECTS,
+    SLUGS.RESOURCES,
+    SLUGS.WRITING,
     SLUGS.CONTACT,
     SLUGS.TWITTER,
   ];
@@ -93,6 +99,12 @@ const SPA = (function () {
         return SLUGS.READING;
       case SLUGS.ABOUT:
         return SLUGS.ABOUT;
+      case SLUGS.PROJECTS:
+        return SLUGS.PROJECTS;
+      case SLUGS.RESOURCES:
+        return SLUGS.RESOURCES;
+      case SLUGS.WRITING:
+        return SLUGS.WRITING;
       default:
         return seg === "" ? SLUGS.DEFAULT : seg;
     }
@@ -337,6 +349,9 @@ const SPA = (function () {
     else if (firstSegment === SLUGS.TOOLS) pageSlug = SLUGS.TOOLS;
     else if (firstSegment === SLUGS.READING) pageSlug = SLUGS.READING;
     else if (firstSegment === SLUGS.ABOUT) pageSlug = SLUGS.ABOUT;
+    else if (firstSegment === SLUGS.PROJECTS) pageSlug = SLUGS.PROJECTS;
+    else if (firstSegment === SLUGS.RESOURCES) pageSlug = SLUGS.RESOURCES;
+    else if (firstSegment === SLUGS.WRITING) pageSlug = SLUGS.WRITING;
     else if (firstSegment && !KNOWN_URL_SEGMENTS.includes(firstSegment)) {
       newPath = `/${SLUGS.BLOG_PATH}${url.pathname}${url.search}${url.hash}`;
       pageSlug = SLUGS.BLOG_NAV;

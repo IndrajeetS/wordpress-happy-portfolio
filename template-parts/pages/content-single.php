@@ -80,27 +80,7 @@ if (!defined('ABSPATH')) {
 
       </div>
 
-      <div id="blog-content" class="content prose prose-gray max-w-none 
-        prose-p:text-lg prose-p:text-gray12 prose-p:mb-8 
-        prose-ul:mb-8 prose-ol:mb-8 
-        prose-li:text-base prose-li:text-gray12 prose-li:leading-relaxed prose-li:ml-4 prose-li:list-disc prose-li:list-inside 
-        prose-a:no-underline prose-a:text-gray12 prose-a:bg-[linear-gradient(currentColor,currentColor)] prose-a:bg-[size:0%_1px] prose-a:bg-[position:0_100%] prose-a:bg-no-repeat prose-a:transition-[background-size] prose-a:duration-200 prose-a:ease-in-out hover:prose-a:bg-[size:100%_1px]
-        prose-pre:bg-gray3 dark:prose-pre:bg-[#111] prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4 prose-pre:my-6 prose-pre:overflow-x-auto prose-pre:text-sm prose-pre:leading-relaxed prose-pre:shadow-sm prose-pre:[scrollbar-width:thin]
-        prose-pre:prose-code:bg-transparent prose-pre:prose-code:p-0 prose-pre:prose-code:border-none prose-pre:prose-code:shadow-none prose-pre:prose-code:text-inherit prose-pre:prose-code:text-sm prose-pre:prose-code:block prose-pre:prose-code:white-space-pre
-        prose-pre:prose-code:[&_span]:bg-transparent!
-        [&_:not(pre)>code]:bg-gray4 dark:[&_:not(pre)>code]:bg-gray5 [&_:not(pre)>code]:text-gray12 [&_:not(pre)>code]:p-[3px_6px] [&_:not(pre)>code]:rounded [&_:not(pre)>code]:text-[0.85rem]
-        [&_q]:italic [&_q]:text-gray11 dark:[&_q]:text-gray10 [&_q]:quotes-['“'_'”'_'‘'_'’'] [&_q]:before:content-[open-quote] [&_q]:after:content-[close-quote]
-        [&_table]:w-full [&_table]:border-collapse [&_table]:border-spacing-0 [&_table]:overflow-hidden [&_table]:rounded-lg [&_table]:bg-contentBg [&_table]:border [&_table]:border-border [&_table]:mb-8 [&_table]:shadow-sm dark:[&_table]:shadow-none
-        [&_table]:border-none [&_th]:border-none [&_td]:border-none [&_thead]:border-none
-        [&_table:not(.comparison-table)_thead_tr]:bg-gray3 dark:[&_table:not(.comparison-table)_thead_tr]:bg-gray4
-        [&_table:not(.comparison-table)_th]:text-gray12 [&_table:not(.comparison-table)_th]:text-[0.95rem] [&_table:not(.comparison-table)_th]:font-semibold [&_table:not(.comparison-table)_th]:p-[1rem_1.25rem] [&_table:not(.comparison-table)_th]:text-left [&_table:not(.comparison-table)_th]:border-b [&_table:not(.comparison-table)_th]:border-border
-        [&_table:not(.comparison-table)_td]:p-[0.9rem_1.25rem] [&_table:not(.comparison-table)_td]:text-gray11 [&_table:not(.comparison-table)_td]:text-left
-        [&_table:not(.comparison-table)_tbody_tr]:border-b [&_table:not(.comparison-table)_tbody_tr]:border-border
-        [&_table:not(.comparison-table)_tbody_tr:nth-child(even)]:bg-gray2 dark:[&_table:not(.comparison-table)_tbody_tr:nth-child(even)]:bg-gray3
-        [&_table:not(.comparison-table)_tbody_tr]:transition-colors [&_table:not(.comparison-table)_tbody_tr]:duration-200 hover:[&_table:not(.comparison-table)_tbody_tr]:bg-hoverBg dark:hover:[&_table:not(.comparison-table)_tbody_tr]:bg-gray4
-        [&_figure]:mt-2 [&_figure]:mb-8 [&_figure_img]:rounded-lg [&_figure_img]:shadow-sm
-        [&_blockquote]:relative [&_blockquote]:my-10 [&_blockquote]:p-[1.25rem_1.5rem_1.25rem_1.75rem] [&_blockquote]:bg-gray2 dark:[&_blockquote]:bg-gray3 [&_blockquote]:border-l-3 [&_blockquote]:border-toc-heightlight [&_blockquote]:rounded-lg [&_blockquote]:text-gray12 [&_blockquote]:text-[1.05rem] [&_blockquote]:leading-relaxed [&_blockquote]:transition-all [&_blockquote]:duration-250 [&_blockquote]:before:content-['“'] [&_blockquote]:before:absolute [&_blockquote]:before:left-3 [&_blockquote]:before:top-[0.2rem] [&_blockquote]:before:text-[2.5rem] [&_blockquote]:before:leading-none [&_blockquote]:before:text-gray8 [&_blockquote]:before:opacity-60 dark:[&_blockquote]:before:text-inherit [&_blockquote_p]:m-0 [&_blockquote_p]:text-gray12 [&_blockquote_cite]:block [&_blockquote_cite]:mt-3 [&_blockquote_cite]:text-[0.85rem] [&_blockquote_cite]:text-gray11
-        [&_hr]:border-none [&_hr]:border-t [&_hr]:border-border">
+      <div id="blog-content" class="content prose prose-gray max-w-none">
         <div id="post-content" class="mb-10">
           <?php
           // Step 1: Get raw content

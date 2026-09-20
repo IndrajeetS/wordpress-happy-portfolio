@@ -19,8 +19,8 @@ function happy_portfolio_generate_toc($content)
     return ''; // No headings - no TOC
   }
 
-  $toc = '<nav class="toc-container relative font-inter">';
-  $toc .= '<div class="text-base font-semibold mb-4 text-gray1! dark:text-gray1 mb-0">Table of contents</div>';
+  $toc = '<nav class="toc-container relative font-sans">';
+  $toc .= '<div class="text-lg font-semibold mb-4 text-gray1! dark:text-gray1 mb-0">Table of contents</div>';
 
   // Container for the border and indicator
   $toc .= '<div class="relative border-l border-gray5 dark:border-gray8">';

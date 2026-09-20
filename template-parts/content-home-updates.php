@@ -30,6 +30,8 @@ $updates = new WP_Query([
 $post_count = $updates->post_count;
 $is_slider = $is_grid && ($post_count > 0);
 $show_nav = $is_slider && ($post_count > 4);
+$about_page = get_page_by_path('about');
+$about_url = $about_page ? get_permalink($about_page) : home_url('/about/');
 ?>
 
 <div id="personal-updates" class="mb-3.5 flex justify-between items-center">
@@ -49,7 +51,7 @@ $show_nav = $is_slider && ($post_count > 4);
         </button>
       </div>
     <?php endif; ?>
-    <a class="<?php echo esc_attr($header_a); ?>" href="/about#personal-updates">
+    <a class="<?php echo esc_attr($header_a); ?>" href="<?php echo esc_url($about_url . '#personal-updates'); ?>">
       View All
     </a>
   </div>
@@ -86,7 +88,7 @@ $show_nav = $is_slider && ($post_count > 4);
   </div>
 <?php else: ?>
   <!-- List Layout (Untouched) -->
-  <div id="home-updates-grid" class="<?php echo esc_attr($update_section); ?>">
+  <div class="home-updates-grid <?php echo esc_attr($update_section); ?>">
     <?php
     if ($updates->have_posts()):
       while ($updates->have_posts()):

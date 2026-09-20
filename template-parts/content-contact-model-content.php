@@ -18,25 +18,33 @@ $instagram = get_post_meta($contact_id, '_happy_contact_instagram', true);
 $facebook = get_post_meta($contact_id, '_happy_contact_facebook', true);
 $github = get_post_meta($contact_id, '_happy_contact_github', true);
 
+$social_links = [
+    'Twitter' => ['url' => $twitter, 'icon' => 'logos:twitter'],
+    'LinkedIn' => ['url' => $linkedin, 'icon' => 'logos:linkedin-icon'],
+    'GitHub' => ['url' => $github, 'icon' => 'logos:github-icon'],
+    'Instagram' => ['url' => $instagram, 'icon' => 'logos:instagram-icon'],
+    'Facebook' => ['url' => $facebook, 'icon' => 'logos:facebook'],
+    'Reddit' => ['url' => $reddit, 'icon' => 'logos:reddit-icon'],
+];
+
 // Your component classes passed from args
 $component_classes = $args['contact_modal_classes'] ??
     "bg-white rounded-xl shadow-2xl w-full max-w-xl transform transition-all overflow-hidden p-6 sm:p-8";
 ?>
 
 <div class="<?php echo esc_attr($component_classes); ?>">
-    <h2 class="font-heading text-base font-medium text-gray12 mb-2" id="modal-title">Contact</h2>
+    <h2 id="modal-title" class="font-heading text-base font-medium text-gray12 mb-2">Contact</h2>
 
-    <p class="text-gray11 text-[10px] font-bold uppercase tracking-[0.15em] mb-6">
+    <p class="text-gray11 text-xxs! font-bold uppercase tracking-[0.03em] mb-6">
         My local time:
-        <span data-local-time class="opacity-0 transition-opacity duration-200 ease-in-out">
-        </span>
+        <span data-local-time class="opacity-0 transition-opacity duration-200 ease-in-out"></span>
     </p>
 
     <!-- Email Section -->
     <div class="space-y-4 border-b border-border py-4 flex flex-row justify-between">
-        <div>
-            <p class="text-sm font-medium text-gray12">Email</p>
-            <p class="text-gray11 text-xs">Always happy to help</p>
+        <div class="m-0">
+            <p class="text-sm! font-medium text-gray12">Email</p>
+            <p class="text-gray11 text-xs!">Always happy to help</p>
         </div>
 
         <div class="flex flex-row justify-between border border-gray4 rounded-lg">
@@ -62,77 +70,35 @@ $component_classes = $args['contact_modal_classes'] ??
 
     <!-- Calendar Section -->
     <div class="space-y-4 border-b border-border py-6 flex flex-row justify-between items-center">
-        <div class="flex flex-col justify-between">
-            <p class="text-sm font-medium text-gray12">Arrange a call</p>
-            <p class="text-gray11 text-xs">Chat with me on a call</p>
+        <div class="m-0">
+            <p class="text-sm! font-medium text-gray12">Arrange a call</p>
+            <p class="text-gray11 text-xs!">Chat with me on a call</p>
         </div>
 
-        <a href="<?php echo esc_url($calendar); ?>" target="_blank"
-            class="shrink-0 font-medium rounded-sm px-2.5 py-2 text-xs hover:bg-gray4 border border-gray4 text-gray12!">
-            Calendar
-        </a>
+        <?php if (!empty($calendar)): ?>
+            <a href="<?php echo esc_url($calendar); ?>" target="_blank" rel="noopener noreferrer"
+                class="shrink-0 font-medium rounded-sm px-2.5 py-2 text-xs hover:bg-gray4 border border-gray4 text-gray12!">
+                Calendar
+            </a>
+        <?php endif; ?>
     </div>
 
     <div class="space-y-4 py-6 flex flex-row justify-between items-center">
-        <div>
-            <p class="text-sm font-medium text-gray12">Stay in touch</p>
-            <p class="text-gray11 text-xs">I'm most responsive on LinkedIn</p>
+        <div class="m-0">
+            <p class="text-sm! font-medium text-gray12">Stay in touch</p>
+            <p class="text-gray11 text-xs!">I'm most responsive on LinkedIn</p>
         </div>
 
-        <div class="flex flex-row justify-between items-center">
-            <!-- Twitter -->
-            <?php if (!empty($twitter)): ?>
-                <a href="<?php echo esc_url($twitter); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:twitter"></span>
-                    Twitter
-                </a>
-            <?php endif; ?>
-
-            <!-- LinkedIn -->
-            <?php if (!empty($linkedin)): ?>
-                <a href="<?php echo esc_url($linkedin); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:linkedin-icon"></span>
-                    LinkedIn
-                </a>
-            <?php endif; ?>
-
-            <!-- GitHub -->
-            <?php if (!empty($github)): ?>
-                <a href="<?php echo esc_url($github); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:github-icon"></span>
-                    GitHub
-                </a>
-            <?php endif; ?>
-
-            <!-- Instagram -->
-            <?php if (!empty($instagram)): ?>
-                <a href="<?php echo esc_url($instagram); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:instagram-icon"></span>
-                    Instagram
-                </a>
-            <?php endif; ?>
-
-            <!-- Facebook -->
-            <?php if (!empty($facebook)): ?>
-                <a href="<?php echo esc_url($facebook); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:facebook"></span>
-                    Facebook
-                </a>
-            <?php endif; ?>
-
-            <!-- Reddit -->
-            <?php if (!empty($reddit)): ?>
-                <a href="<?php echo esc_url($reddit); ?>" target="_blank"
-                    class="text-gray12 flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
-                    <span class="iconify text-sm mr-1" data-icon="logos:reddit-icon"></span>
-                    Reddit
-                </a>
-            <?php endif; ?>
+        <div class="flex flex-row flex-wrap justify-end items-center gap-y-1 social-links">
+            <?php foreach ($social_links as $label => $social_link): ?>
+                <?php if (!empty($social_link['url'])): ?>
+                    <a href="<?php echo esc_url($social_link['url']); ?>" target="_blank" rel="noopener noreferrer"
+                        class="text-gray12! flex flex-row justify-between items-center shrink-0 font-medium rounded-sm px-2.5 py-2 text-[11px] hover:bg-gray4">
+                        <span class="iconify text-sm mr-1" data-icon="<?php echo esc_attr($social_link['icon']); ?>"></span>
+                        <?php echo esc_html($label); ?>
+                    </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 

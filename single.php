@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Single blog Page
+ * Template Name: Single Post Page
  */
 
 $content_template = 'single';

@@ -1,6 +1,6 @@
 /*
  * Optimization for Font Display:
- * The PHP file (inc/assets.php) now correctly loads Lato and Roboto
+ * The PHP file (inc/assets.php) loads Inter and Roboto
  * with the 'font-display: swap' property via the Google Fonts URL.
  * * This CSS ensures the font-family definitions use the correct
  * font names and include robust system fallbacks.
@@ -124,7 +124,9 @@
   --color-toc-heightlight: var(--color-toc-heightlight);
 
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-heading: "Playfair Display", serif;
+  --font-heading: "Roboto", system-ui, sans-serif;
+  --text-xxs: 0.625rem;
+  --text-xxs--line-height: 1rem;
   --text-lg: 1.125rem;
   --text-md: 1rem;
 }
@@ -150,7 +152,7 @@ h5,
 h6 {
   font-family: var(--font-heading);
   color: var(--color-gray12);
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   line-height: 1.25;
 }
 
@@ -214,6 +216,10 @@ a {
   transition: color 0.2s ease;
 }
 
+/* .social-links {
+  max-width: 240px;
+} */
+
 /* a:hover {
   color: var(--color-accent);
 } */
@@ -232,15 +238,19 @@ a {
 }
 
 #blog-content p,
-#about-page-content p {
+#about-page-content p,
+#about-page .about-tech-info>p,
+#about-page .about-career-info>p,
+#about-page .about-site-info>p,
+#tabbed-listing-root .introductory_content>p {
   color: var(--color-gray12);
-  font-size: var(--text-lg);
-  margin-bottom: 2rem;
+  font-size: var(--text-sm);
+  margin-bottom: 1.5rem;
 }
 
 #blog-content ul,
 #blog-content ol {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 #blog-content li {
@@ -252,7 +262,7 @@ a {
   list-style-position: inside;
 }
 
-#home-updates-grid a {
+.home-updates-grid a {
   color: var(--color-gray12);
   display: inline-flex;
   padding-right: 16px;
@@ -263,7 +273,7 @@ a {
   align-items: stretch;
 }
 
-#home-updates-grid a {
+.home-updates-grid a {
   color: var(--color-gray12);
   display: inline-flex;
   align-items: stretch;
@@ -272,7 +282,7 @@ a {
 
 /* #blog-content a,
 #about-page .about-career-info a,
-#home-updates-grid a {
+.home-updates-grid a {
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -308,7 +318,7 @@ a {
 #blog-content h3,
 #blog-content h4,
 #blog-content h5 {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* ----------------------------------------------------- */
@@ -319,16 +329,13 @@ a {
 #blog-content pre {
   background: var(--color-gray3);
   border: 1px solid var(--color-border);
+  font-size: var(--text-sm) !important;
   border-radius: 0.5rem;
-
   padding: 1rem 1.5rem;
   margin: 1.5rem 0;
-
   overflow-x: auto;
-
   font-size: 0.875rem;
   line-height: 1.6;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
@@ -338,10 +345,8 @@ a {
   padding: 0;
   border: none;
   box-shadow: none;
-
   color: inherit;
   font-size: inherit;
-
   display: block;
   white-space: pre;
 }
@@ -375,7 +380,7 @@ a {
 /* INLINE CODE (ONLY inline, not inside pre) */
 /* ----------------------------------------------------- */
 
-#blog-content :not(pre) > code {
+#blog-content :not(pre)>code {
   background: var(--color-gray4);
   color: var(--color-gray12);
 
@@ -385,7 +390,7 @@ a {
   font-size: 0.85rem;
 }
 
-.dark #blog-content :not(pre) > code {
+.dark #blog-content :not(pre)>code {
   background: var(--color-gray5);
 }
 
@@ -424,8 +429,8 @@ a {
 }
 
 /* Ensure headings use Roboto + spacing */
-#about-page .about-site-info > h2,
-#about-page .about-tech-info > h2 {
+#about-page .about-site-info>h2,
+#about-page .about-tech-info>h2 {
   font-size: 1.125rem;
   margin-bottom: 0.875rem;
   color: var(--color-gray12);
@@ -433,27 +438,27 @@ a {
   margin-top: 3.5rem;
 }
 
-#about-page .about-site-info > h3,
-#about-page .about-tech-info > h3 {
+#about-page .about-site-info>h3,
+#about-page .about-tech-info>h3 {
   font-size: 1rem;
   color: var(--color-gray12);
   margin: 0;
   font-weight: 400;
 }
 
-#about-page .about-site-info > p,
-#about-page .about-tech-info > p {
+/* #about-page .about-site-info>p,
+#about-page .about-tech-info>p {
   margin-bottom: 1rem;
   color: var(--color-gray12);
-}
+} */
 
-#about-page .about-site-info > ul {
+#about-page .about-site-info>ul {
   color: var(--color-gray12);
   padding-left: 1rem;
   list-style-type: disc;
 }
 
-#about-page .about-site-info > ol {
+#about-page .about-site-info>ol {
   color: var(--color-gray12);
   padding-left: 1rem;
   list-style-type: decimal;
@@ -505,7 +510,7 @@ a {
 
 #post-content table:not(.comparison-table) th {
   color: var(--color-gray12);
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   font-weight: 600;
   padding: 1rem 1.25rem;
   text-align: left;
@@ -534,6 +539,7 @@ a {
   padding: 0.9rem 1.25rem;
   color: var(--color-gray11);
   text-align: left;
+  font-size: var(--text-sm);
 }
 
 /* ROW DIVIDER */
@@ -633,12 +639,7 @@ a {
   border-bottom-color: var(--color-border);
 }
 
-.dark
-  #post-content
-  table:not(.comparison-table)
-  tbody
-  > :not([hidden])
-  ~ :not([hidden]) {
+.dark #post-content table:not(.comparison-table) tbody> :not([hidden])~ :not([hidden]) {
   border-color: var(--color-border);
 }
 
@@ -648,7 +649,7 @@ a {
 
 #post-content figure {
   margin-top: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
 }
 
 #post-content figure img {
@@ -663,31 +664,37 @@ a {
 }
 
 @keyframes blobFloat {
+
   0%,
   100% {
     transform: translateY(0px) scale(1);
   }
+
   50% {
     transform: translateY(-10px) scale(1.05);
   }
 }
 
 @keyframes blobFloatAlt {
+
   0%,
   100% {
     transform: translate(12px, 0px) scale(1);
   }
+
   50% {
     transform: translate(12px, -14px) scale(1.08);
   }
 }
 
 @keyframes glowPulse {
+
   0%,
   100% {
     opacity: 0.6;
     filter: blur(40px);
   }
+
   50% {
     opacity: 1;
     filter: blur(55px);
@@ -695,10 +702,12 @@ a {
 }
 
 @keyframes iconFloat {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-4px);
   }
@@ -746,6 +755,7 @@ a {
 #post-content blockquote p {
   margin: 0;
   color: var(--color-gray12);
+  font-size: var(--text-sm);
 }
 
 /* Optional: citation */
@@ -789,7 +799,8 @@ a {
 }
 
 #post-content a:not(.button):hover {
-  color: var(--color-accent);
+  /* color: var(--color-accent); */
+  color: var(--color-toc-heightlight);
 }
 
 /* ----------------------------------------------------- */
@@ -800,7 +811,8 @@ a {
   display: grid;
   grid-template-rows: 0fr;
   overflow: hidden;
-  padding: 0 20px; /* 👈 move horizontal padding here */
+  padding: 0 20px;
+  /* 👈 move horizontal padding here */
   transition:
     grid-template-rows 0.3s ease-in-out,
     padding 0.3s ease;
@@ -808,7 +820,8 @@ a {
 
 .faq-item.is-open .faq-content {
   grid-template-rows: 1fr;
-  padding: 0 20px 20px; /* 👈 add bottom padding only when open */
+  padding: 0 20px 20px;
+  /* 👈 add bottom padding only when open */
 }
 
 .faq-content-inner {
@@ -843,7 +856,7 @@ a {
   height: 100%;
 }
 
-.updates-swiper-container .swiper-slide a > div {
+.updates-swiper-container .swiper-slide a>div {
   flex: 1;
   width: 100%;
   height: 100%;
@@ -992,6 +1005,7 @@ a {
 }
 
 .toc-item {
+  font-size: var(--text-sm);
   color: var(--color-gray12);
   transition:
     color 0.2s ease,

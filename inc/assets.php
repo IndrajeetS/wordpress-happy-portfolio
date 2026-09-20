@@ -57,8 +57,8 @@ function happy_portfolio_preload_google_fonts()
 
     // 2. Asynchronously load the font stylesheet using media="print" trick.
     // The 'display=swap' parameter ensures the text is visible (using a fallback)
-    // before the custom font (Inter and Playfair Display) has loaded.
-    $font_url = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap';
+    // before the custom fonts (Inter and Roboto) have loaded.
+    $font_url = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap';
 
     echo '<link href="' . esc_url($font_url) . '" rel="stylesheet" media="print" onload="this.media=\'all\'">' . "\n";
 }

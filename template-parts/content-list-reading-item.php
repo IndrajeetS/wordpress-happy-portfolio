@@ -71,13 +71,12 @@ if ($link):
         </div>
 
         <div class="flex flex-col ml-3 flex-1">
-            <h3 class="text-sm mb-0 font-medium">
+            <h3 class="text-lg! font-medium text-gray12 w-full leading-tight mb-0.5">
                 <?php the_title(); ?>
-                <span class="opacity-0 text-xs group-hover:opacity-100 transition-opacity duration-300">↗</span>
             </h3>
 
             <div class="flex justify-between items-center">
-                <p class="text-gray11 text-xs mb-0! hidden md:flex">
+                <p class="text-gray11 text-xs! resources mb-0! hidden md:flex">
                     <?php echo esc_url(substr($link, 0, 50)) . (strlen($link) > 50 ? '...' : ''); ?>
                 </p>
 

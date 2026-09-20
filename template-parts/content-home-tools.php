@@ -9,11 +9,14 @@ $terms = get_terms([
   'taxonomy' => 'techtool_category',
   'hide_empty' => true,
 ]);
+
+$tools_page = get_page_by_path('tools');
+$tools_url = $tools_page ? get_permalink($tools_page) : home_url('/tools/');
 ?>
 
 <div class="mb-3.5 flex justify-between items-center">
   <h2 class="text-xl! font-medium m-0!">Latest tools</h2>
-  <a href="/tools/"
+  <a href="<?php echo esc_url($tools_url); ?>"
     class="text-xs text-gray11! duration-75 ease-in rounded-lg p-[5.5px_9px] hover:text-primary! tracking-wide"
     rounded-lg p-[5.5px_9px]">View All</a>
 </div>

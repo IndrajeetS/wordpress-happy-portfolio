@@ -18,9 +18,9 @@ export const theme = {
       accent: "#f97316", // orange accent
     },
     fontFamily: {
-      // FIX: Updated to Inter (sans) and Playfair Display (heading) for consistency
+      // Keep the Tailwind font utilities aligned with the theme tokens.
       sans: ["Inter", "system-ui", "sans-serif"],
-      heading: ["'Playfair Display'", "serif"],
+      heading: ["Roboto", "system-ui", "sans-serif"],
     },
     container: {
       center: true,
@@ -33,7 +33,7 @@ export const theme = {
       },
     },
     fontSize: {
-      'xxs': '0.725rem',
+      'xxs': ['0.625rem', { lineHeight: '1rem' }],
     },
   },
 };

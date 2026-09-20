@@ -104,7 +104,7 @@ if ($link):
                 </h3>
 
                 <!-- 3. Content full width -->
-                <div class="text-gray11! text-xs! w-full leading-relaxed">
+                <div class="text-gray11! text-xs! w-full leading-relaxed line-clamp-5">
                     <?php
                     remove_filter('the_content', 'wpautop');
                     the_content();
@@ -132,8 +132,8 @@ if ($link):
 
                 <div class="flex-1 flex flex-col justify-between">
 
-                    <div class="flex flex-row justify-between items-center mb-2">
-                        <h3 class="text-sm! font-medium text-gray12 group-hover:text-accent">
+                    <div class="flex flex-row justify-between items-start mb-2">
+                        <h3 class="text-lg! font-medium text-gray12 group-hover:text-accent">
                             <?php the_title(); ?>
                         </h3>
 
